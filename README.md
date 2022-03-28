@@ -1,3 +1,3 @@
 # VueJs
 
-## [Practical] (https://friendly-praline-69294e.netlify.app/)
+[Practical] (https://friendly-praline-69294e.netlify.app/)
