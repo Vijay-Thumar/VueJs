@@ -3,7 +3,7 @@
     <div v-for="item in fulldata" :key="item.id" class="main_container">
       <h2>{{ item.heading }}</h2>
 
-      <div class="hola_image"><img :src="item.image" alt="image of car" /></div>
+      <div class="hola_image"><img :src="item.image" alt="image of car" /></div>  
 
       <h3 class="details_container">{{ item.details }}</h3>
 
