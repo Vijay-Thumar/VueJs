@@ -8,7 +8,7 @@ import GallaryCard from './components/GallaryCard.vue';
 export default {
   name: 'App',
   components: {
-    GallaryCard
+    GallaryCard 
   }
 }
 </script>

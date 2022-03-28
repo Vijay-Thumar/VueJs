@@ -1,74 +1,66 @@
 <template>
-  <div class="main_container">
-    
-    <h2>{{ heading }}</h2>
-    
-    <img src="https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg?crop=1.00xw:0.891xh;0,0.0759xh&resize=400:*" alt="" srcset="">
+  <div v-for="item in fulldata" :key="item.id" class="main_container">
+    <h2>{{ item.heading }}</h2>
 
-    <h3>{{ details }}</h3>
-    
-    <button @click="clickHandler" class="info_btn"> info  </button>
+    <div class="hola_image"><img :src="item.image" alt="image of car" /></div>
 
-    <h1> iteams in cart: {{count}}</h1>
-    <button class="btn" @click="add"> add car </button> | <button class="btn" @click="sub"> remove car </button>
+    <h3 class="details_container">{{ item.details }}</h3>
+
+    <div>
+      <h3 class="details_container">{{ item.specs }}</h3>
+    </div>
+
+    <button @click="clickHandler(item.price, item.heading)" class="info_btn">
+      info
+    </button>
   </div>
 </template>
 
-<script src="./script.js"></script>
+<script>
+import jsonData from "./jsonData.json";
+
+export default {
+  name: "GallaryCard",
+  data() {
+    return {
+      fulldata: jsonData,
+    };
+  },
+  methods: {
+    clickHandler(price, heading) {
+      alert("Car Name: " + heading + "\n" + "Price is: " + price);
+    },
+  },
+};
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@media (min-width: 400px) {
   h3 {
-  margin: 40px 0 0;
-}
+    margin: 40px 0 0;
+  }
 
-.btn{
-  border-radius: 15px;
-  padding: 10px;
-  background-color: #2c3e50;
-  color: #fff;
-}
-.main_container{
-  background-color: burlywood;
-  padding: 50px;
-}
-.info_btn{
-  border-radius: 15px;
-  padding: 10px 25px;
-  margin: 10px 0 0 0;
-  background-color: #50302c;
-  color: #fff;
-}
-}
-
-@media (max-width: 530px) {
-  h3 {
-  margin: 40px 0 0;
-}
-
-img{
-  width: 200px;
-  height: auto;
-}
-
-.btn{
-  border-radius: 15px;
-  padding: 5px;
-  background-color: #2c3e50;
-  color: #fff;
-}
-.main_container{
-  background-color: burlywood;
-  padding: 50px;
-}
-.info_btn{
-  border-radius: 15px;
-  padding: 5px 15px;
-  margin: 5px 0 0 0;
-  background-color: #50302c;
-  color: #fff;
-}
-}
+  .btn {
+    border-radius: 15px;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: #fff;
+  }
+  .main_container {
+    background-color: burlywood;
+    padding: 50px;
+    max-width: 400px;
+    margin: 10px;
+  }
+  .info_btn {
+    border-radius: 15px;
+    padding: 10px 25px;
+    margin: 10px 0 0 0;
+    background-color: #50302c;
+    color: #fff;
+  }
+  img{
+    max-width: 400px  ;
+  }
 
 </style>
