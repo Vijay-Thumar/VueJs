@@ -1,14 +1,15 @@
 <template>
+<top-navagation></top-navagation>
   <div class="List-home">
     <div v-for="item in fulldata" :key="item.id" class="main_container">
       <h2>{{ item.heading }}</h2>
 
-      <div class="hola_image"><img :src="item.image" alt="image of car" /></div>
+      <div><img :src="item.image" alt="image of car" /></div>
 
-      <h3 class="details_container">{{ item.details }}</h3>
+      <h4>{{ item.details }}</h4>
 
       <div>
-        <h3 class="details_container">{{ item.specs }}</h3>
+        <h4>{{ item.specs }}</h4>
       </div>
 
       <button
@@ -52,7 +53,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
+h4 {
   margin: 40px 0 0;
 }
 
@@ -63,10 +64,11 @@ h3 {
   color: #fff;
 }
 .main_container {
-  background-color: burlywood;
+  background-color: rgb(230, 211, 247);
   padding: 50px;
   max-width: 400px;
   margin: 10px;
+  border-radius: 50px;
 }
 .info_btn {
   border-radius: 15px;
