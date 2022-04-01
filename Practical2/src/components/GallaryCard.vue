@@ -1,14 +1,14 @@
 <template>
   <top-navagation />
   <div class="flex_container">
-    <div v-for="item in fulldata" :key="item.id">
+    <div v-for="item in carsDetails" :key="item.id">
       <VehicalCard :vehicalData="item" />
     </div>
   </div>
 </template>
 
 <script>
-import jsonData from "./jsonData.json";
+import jsonData from "./Data/jsonData.json";
 import VehicalCard from "./VehicalCard.vue";
 
 export default {
@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      fulldata: jsonData,
+      carsDetails: jsonData,
     };
   },
   methods: {

@@ -1,6 +1,5 @@
 <template>
   <div class="List-home">
-    <!-- <div v-for="item in fulldata" :key="item.id" class="main_container"> -->
     <div class="main_container">
       <h2>{{ vehicalData.heading }}</h2>
 
@@ -20,11 +19,8 @@
         info
       </button>
 
-      <!-- <h1 v-else>Oh no :(</h1> -->
-
       <button v-else disabled class="disable_button">Available soon!</button>
     </div>
-    <!-- </div> -->
   </div>
 </template>
 
