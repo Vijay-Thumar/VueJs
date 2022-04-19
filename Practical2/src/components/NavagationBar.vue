@@ -1,8 +1,6 @@
 <template>
   <div class="Navagation_bar">
     <div>Navagation bar from navagation</div>
-      <div class="add_button" @click="addButtonHandler"> Add </div>
-
   </div>
 </template>
 
