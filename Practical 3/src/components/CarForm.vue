@@ -1,37 +1,89 @@
 <template>
-  <form>
-    <input v-model="heading" placeholder="Enter Heading" /><br />
-    <input v-model="details" placeholder="Enter Details" /><br />
-    <input v-model="image" placeholder="Enter Image Url" /><br />
-    <input v-model="price" placeholder="Enter Price of car" /><br />
-    <button type="submit" @click="formSubmitHandler">Submit</button><br />
-  </form>
+        <div class="modal-body">
+          <Form @submit="onSubmit" :validation-schema="schema">
+            <div>
+              <label for="title" class="col-form-label">Car Title</label>
+              <Field id="title" name="title" type="text" class="form-control" />
+              <ErrorMessage name="title" class="text-danger" />
+            </div>
+
+            <div>
+              <label for="description" class="col-form-label"
+                >Car Description</label
+              >
+              <Field
+                id="description"
+                name="description"
+                type="text"
+                class="form-control"
+              />
+              <ErrorMessage name="description" class="text-danger" />
+            </div>
+
+            <div>
+              <label for="price" class="col-form-label">Car Price</label>
+              <Field
+                id="price"
+                name="price"
+                type="number"
+                class="form-control"
+              />
+              <ErrorMessage name="price" class="text-danger" />
+            </div>
+
+            <div>
+              <label for="carimage" class="col-form-label">Car Image</label>
+              <Field
+                id="carimage"
+                name="carimage"
+                type="text"
+                class="form-control"
+              />
+              <ErrorMessage name="carimage" class="text-danger" />
+            </div>
+
+            <button class="btn btn-primary mt-3">Submit</button>
+          </Form>
+        </div>
 </template>
 
 <script>
+import { Field, Form, ErrorMessage } from "vee-validate";
+import * as Yup from "yup";
+
 export default {
-  data() {
-    return {
-      heading: null,
-      details: null,
-      image: null,
-      price: null,
-    };
+
+  components: {
+    Field,
+    Form,
+    ErrorMessage,
   },
-  methods: {
-    formSubmitHandler(e) {
-      e.preventDefault();
-      console.log("Form Submitted");
-      console.log(this.heading);
-      console.log(this.details);
-      console.log(this.image);
-      console.log(this.price);
-    },
+  setup() {
+    const schema = Yup.object().shape({
+      title: Yup.string().required("Car Title is Required!"),
+      description: Yup.string()
+        .required("Car Description is Required!")
+        .min(30)
+        .max(120),
+      price: Yup.number().required("Car Price is Required!"),
+      carimage: Yup.string()
+        .required("Car Image is Required!")
+        .url("Car Image must be url Format!"),
+    });
+    function onSubmit(values) {
+      alert(JSON.stringify(values, null, 2));
+      this.carsDetails.push(values);
+      console.log(this.carsDetails);
+    }
+    return {
+      schema,
+      onSubmit,
+    };
   },
 };
 </script>
 
-<style>
+<style scoped>
 input {
   padding: 5px;
   margin: 5px;

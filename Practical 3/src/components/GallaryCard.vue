@@ -5,25 +5,26 @@
       <VehicalCard :vehicalData="item" />
     </div>
   </div>
-  <CarForm />
+  <!-- <CarForm /> -->
 </template>
 
 <script>
 import jsonData from "./Data/jsonData.json";
 import VehicalCard from "./VehicalCard.vue";
-import CarForm from "./CarForm.vue";
+// import CarForm from "./CarForm.vue";
 
 export default {
   name: "GallaryCard",
   components: {
     VehicalCard,
-    CarForm,
+    // CarForm,
   },
   data() {
     return {
       carsDetails: jsonData,
     };
   },
+  
   methods: {
     clickHandler(price, heading) {
       alert("Car Name: " + heading + "\n" + "Price is: " + price);

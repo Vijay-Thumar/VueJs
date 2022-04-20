@@ -21,6 +21,18 @@
 
       <button v-else disabled class="disable_button">Available soon!</button>
 
+      <button
+        class="edit_button"
+        @click="editClickHandler(vehicalData.heading)"
+      >
+        Edit
+      </button>
+      <button
+        class="delete_button"
+        @click="deleteClickHandler(vehicalData.heading)"
+      >
+        Delete
+      </button>
     </div>
   </div>
 </template>
@@ -37,11 +49,67 @@ export default {
     clickHandler(price, heading) {
       alert("Car Name: " + heading + "\n" + "Price is: " + price);
     },
+    deleteClickHandler(heading) {
+      alert('Delete the car " ' + heading + ' " From the list !!');
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.edit_button {
+  border-radius: 15px;
+  padding: 10px 25px;
+  margin: 10px 0 0 0;
+  background-color: green;
+  margin: 5px;
+  color: #fff;
+}
+.edit_button:hover {
+  background-color: green;
+  border-radius: 15px;
+  border-top: 2px solid darkgreen;
+  border-top: 2px solid darkgreen;
+  padding: 10px 25px;
+
+  color: white;
+  cursor: pointer;
+}
+.edit_button:active {
+  background-color: green;
+  border-radius: 15px;
+  border-top: 1px solid darkgreen;
+  border-top: 1px solid darkgreen;
+  padding: 10px 25px;
+  color: white;
+  cursor: pointer;
+}
+.delete_button {
+  border-radius: 15px;
+  padding: 10px 25px;
+  margin: 10px 0 0 0;
+  background-color: rgba(125, 27, 0, 0.974);
+  margin: 5px;
+  color: #fff;
+}
+.delete_button:hover {
+  background-color: rgba(125, 27, 0, 0.974);
+  border-radius: 15px;
+  border-top: 2px solid rgba(102, 22, 0, 0.974);
+  border-top: 2px solid rgba(102, 22, 0, 0.974);
+  padding: 10px 25px;
+  color: white;
+  cursor: pointer;
+}
+.delete_button:active {
+  background-color: rgba(125, 27, 0, 0.974);
+  border-radius: 15px;
+  border-top: 1px solid rgba(102, 22, 0, 0.974);
+  border-top: 1px solid rgba(102, 22, 0, 0.974);
+  padding: 10px 25px;
+  color: white;
+  cursor: pointer;
+}
 h4 {
   margin: 40px 0 0;
 }
@@ -77,6 +145,7 @@ img {
   flex-direction: row;
 }
 .disable_button {
+  margin: 5px;
   border-radius: 15px;
   padding: 10px 25px;
   margin: 10px 0 0 0;
