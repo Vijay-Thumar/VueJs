@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "heading": "Shelby Mustang",
+    "details": "Revolutionary thinking is at the heart of every idea from Automobili Lamborghini. Whether it is aerospace-inspired design or technologies applied to the naturally aspirated V12 engine",
+    "image": "https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg?crop=1.00xw:0.891xh;0,0.0759xh&resize=2048:*",
+    "price": " INR 11.00 Cr"
+  },
+  {
+    "id": 2,
+    "heading": "Lamborghini Aventador",
+    "details": "DESIGNED TO PUSH BEYOND PERFORMANCE, Whether it is aerospace-inspired design or technologies applied to the naturally aspirated V12 engine or carbon-fiber structure, going beyond accepted limits is part of our philosophy.",
+    "image": "https://cdn.motor1.com/images/mgl/4JyZA/s3/lamborghini-aventador-lp-780-4-ultimae.webp",
+    "price": " INR 6.25 Cr."
+  },
+  {
+    "id": 3,
+    "heading": "Pagani Huayra",
+    "details": " The Pugani Huayra It is named after Huayra-tata, a Quechua wind god. The Huayra is a sports car that was designed to be the first sports car in the world to be powered by a gasoline engine. The Huayra is the first sports car to be produced by a company that is based in Italy.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/36/Pagani%2C_GIMS_2019%2C_Le_Grand-Saconnex_%28GIMS0023%29.jpg",
+    "price": " INR 60.00-85.00 Cr."
+  }
+]
