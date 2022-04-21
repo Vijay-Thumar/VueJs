@@ -12,7 +12,6 @@
         :price="car.price"
         @CarPrice="CarPrice"
         @editCard="editCard(car)"
-        @deleteCard="deleteCard(car)"
       />
 
       <FormModal
