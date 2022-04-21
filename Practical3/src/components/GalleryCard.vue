@@ -12,11 +12,6 @@ export default {
   methods: {
     showDeleteCar: function () {
       alert(`Delete car sucessfully ` + this.carTitle + "!!!");
-      
-      console.log(this.cars)
-      var deletingItem  = this.cars.indexOf(this.carTitle);
-      console.log(deletingItem);
-      // this.cars.splice(deletingItem,1);
     },
   },
 };
