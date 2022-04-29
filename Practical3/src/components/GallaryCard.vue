@@ -1,5 +1,5 @@
 <template>
-  <top-navagation />
+  <top-navagation @onFormSubmitHandler='saveFormdataHandler'/>
   <div class="flex_container">
     <div v-for="car in carsDetails" :key="car.id">
       <VehicalCard
@@ -7,8 +7,8 @@
         @deleteIteam="deleteClickHandler"
       />
     </div>
+    <!-- <CarForm/> -->
   </div>
-  <!-- <CarForm /> -->
 </template>
 
 <script>
@@ -20,8 +20,8 @@ export default {
   name: "GallaryCard",
   components: {
     VehicalCard,
-    // CarForm,
-  },
+    // CarForm
+},
   data() {
     return {
       carsDetails: jsonData,
@@ -30,6 +30,7 @@ export default {
   methods: {
     clickHandler(price, heading) {
       alert("Car Name: " + heading + "\n" + "Price is: " + price);
+      console.log(this.carsDetails)
     },
     // --------------the emit used--------->
     deleteClickHandler(data) {
@@ -37,6 +38,9 @@ export default {
       let specialIndex = this.carsDetails.findIndex( item => item.heading === data);
       this.carsDetails.splice(specialIndex, 1);
     },
+    saveFormdataHandler(formData){
+      console.log(formData);
+    }
   },
 };
 </script>

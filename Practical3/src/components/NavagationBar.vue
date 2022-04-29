@@ -6,24 +6,22 @@
         type="button"
         class="btn btn-primary"
         data-toggle="modal"
-        data-target="#exampleModal"
+        data-target="#AddCarForm"
       >
-        Launch demo modal
+        Add Car
       </button>
-
-      <!-- Modal -->
       <div
         class="modal fade"
-        id="exampleModal"
+        id="AddCarForm"
         tabindex="-1"
         role="dialog"
-        aria-labelledby="exampleModalLabel"
+        aria-labelledby="AddCarFormLabel"
         aria-hidden="true"
       >
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="AddCarFormLabel">Add Car</h5>
               <button
                 type="button"
                 class="close"
@@ -33,30 +31,66 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
+
             <div class="modal-body">
-              <Form @submit="submit" :validation-schema="schema">
-                <Field name="heading" />
-                <ErrorMessage name="heading" />
-                <Field name="description" type="text" />
-                <ErrorMessage name="description " />
-                <Field name="heading" />
-                <ErrorMessage name="heading" />
-                <Field name="description" type="text" />
-                <ErrorMessage name="description " />
-                <button>Submit</button>
+              <Form @submit="onSubmit" :validation-schema="schema">
+                <div>
+                  <Field
+                    id="heading"
+                    name="heading"
+                    type="text"
+                    placeholder="Heading:- Ex:- Ambassador"
+                    class="form-control"
+                  />
+                  <ErrorMessage name="heading" class="text-danger h6" />
+                </div>
+
+                <div>
+                  <Field
+                    id="description"
+                    name="description"
+                    type="text"
+                    placeholder="Description Ex:- Owner of this Organization"
+                    class="form-control"
+                  />
+                  <ErrorMessage name="description" class="text-danger h6" />
+                </div>
+
+                <div>
+                  <Field
+                    id="specs"
+                    name="specs"
+                    type="text"
+                    placeholder="Specification Ex:- Power-HP/500CC Petrol/Diesel"
+                    class="form-control"
+                  />
+                  <ErrorMessage name="specs" class="text-danger h6" />
+                </div>
+
+                <div>
+                  <Field
+                    id="carimage"
+                    name="carimage"
+                    type="text"
+                    placeholder="Image Link Ex:- https://abc.com"
+                    class="form-control"
+                  />
+                  <ErrorMessage name="carimage" class="text-danger h6" />
+                </div>
+
+                <div>
+                  <Field
+                    id="price"
+                    name="price"
+                    type="number"
+                    placeholder="Ex:- 123456 Only/-"
+                    class="form-control"
+                  />
+                  <ErrorMessage name="price" class="text-danger h6" />
+                </div>
+
+                <button class="btn btn-primary mt-3">Submit</button>
               </Form>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
             </div>
           </div>
         </div>
@@ -66,28 +100,57 @@
 </template>
 
 <script>
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Field, Form, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-
 export default {
+  name: "ModalComponent",
   components: {
-    Form,
     Field,
+    Form,
     ErrorMessage,
   },
-  data() {
-    const schema = yup.object({
-      email: yup.string().required().email(),
-      password: yup.string().required().min(8),
+  setup() {
+    const schema = yup.object().shape({
+      heading: yup.string().required("Car heading is Required!"),
+      description: yup
+        .string()
+        .required("Car Description is Required!")
+        .min(30)
+        .max(120),
+      specs: yup
+        .string()
+        .required("Car Specification is Required!")
+        .min(12)
+        .max(30),
+      carimage: yup
+        .string()
+        .required("Car Image is Required!")
+        .url("Car Image must be url Format!"),
+      price: yup.number().required("Car Price is Required!"),
     });
+
+    function onSubmit(values) {
+      alert(JSON.stringify(values, null, 2));
+      // this.carsDetails.push = values;
+      this.$emit("onFormSubmitHandler", values);
+    }
+    
     return {
       schema,
+      onSubmit,
     };
   },
 };
 </script>
 
 <style>
+.modal-body input {
+  border-radius: 15px;
+  background-color: rgb(222, 222, 222);
+  border: 1px solid gray;
+  padding: 5px;
+  margin: 6px;
+}
 .Navagation_bar {
   min-width: 80%;
   background-color: rgb(84, 121, 241);
