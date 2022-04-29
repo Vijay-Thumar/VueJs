@@ -35,10 +35,14 @@
             </div>
             <div class="modal-body">
               <Form @submit="submit" :validation-schema="schema">
-                <Field name="email" />
-                <ErrorMessage name="email" />
-                <Field name="password" type="password" />
-                <ErrorMessage name="password" />
+                <Field name="heading" />
+                <ErrorMessage name="heading" />
+                <Field name="description" type="text" />
+                <ErrorMessage name="description " />
+                <Field name="heading" />
+                <ErrorMessage name="heading" />
+                <Field name="description" type="text" />
+                <ErrorMessage name="description " />
                 <button>Submit</button>
               </Form>
             </div>

@@ -37,6 +37,22 @@
   </div>
 </template>
 
+<script>
+export default {
+  props: {
+    vehicalData: Object,
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    clickHandler(price, heading) {
+      alert("Car Name: " + heading + "\n" + "Price is: " + price);
+    },
+  },
+};
+</script>
+
 <style scoped>
 .edit_button {
   border-radius: 15px;
