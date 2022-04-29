@@ -27,20 +27,17 @@
       >
         Edit
       </button>
-      <button
-        class="delete_button"
-        @click="deleteClickHandler(vehicalData.heading)"
-      >
-        Delete
-      </button>
+      <button class="delete_button" @click="deleteIteamData">Delete</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  // emits: ["deleteClickHandler"],
   props: {
     vehicalData: Object,
+    vehicalIndex: Number,
   },
   data() {
     return {};
@@ -48,6 +45,11 @@ export default {
   methods: {
     clickHandler(price, heading) {
       alert("Car Name: " + heading + "\n" + "Price is: " + price);
+    },
+    deleteIteamData() {
+      console.log("delete item invoked");
+      this.$emit("deleteIteam", this.vehicalData.heading);
+      // console.log(index)
     },
   },
 };

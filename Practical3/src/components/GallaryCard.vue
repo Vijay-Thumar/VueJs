@@ -1,8 +1,11 @@
 <template>
   <top-navagation />
   <div class="flex_container">
-    <div v-for="(car, index) in carsDetails" :key="car.id">
-      <VehicalCard :vehicalData="car" :vehicalIndex="index" />
+    <div v-for="car in carsDetails" :key="car.id">
+      <VehicalCard
+        :vehicalData="car"
+        @deleteIteam="deleteClickHandler"
+      />
     </div>
   </div>
   <!-- <CarForm /> -->
@@ -27,6 +30,12 @@ export default {
   methods: {
     clickHandler(price, heading) {
       alert("Car Name: " + heading + "\n" + "Price is: " + price);
+    },
+    // --------------the emit used--------->
+    deleteClickHandler(data) {
+      console.log("This is the id of iteam: " + data);
+      let specialIndex = this.carsDetails.findIndex( item => item.heading === data);
+      this.carsDetails.splice(specialIndex, 1);
     },
   },
 };
