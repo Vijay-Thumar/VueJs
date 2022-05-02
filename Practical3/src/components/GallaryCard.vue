@@ -1,5 +1,9 @@
 <template>
-  <top-navagation @onFormSubmitHandler="saveFormdataHandler" :upcomingData ="this.filteredData"/>
+  <!-- <top-navagation @onFormSubmitHandler="saveFormdataHandler" :upcomingData ="this.filteredData"/> -->
+  <NavagationBar
+    @onFormSubmitHandler="saveFormdataHandler"
+    :upcomingData="this.filteredData"
+  />
   <div class="flex_container">
     <div v-for="car in carsDetails" :key="car.id">
       <VehicalCard
@@ -15,12 +19,14 @@
 <script>
 import jsonData from "./Data/jsonData.json";
 import VehicalCard from "./VehicalCard.vue";
+import NavagationBar from "./NavagationBar.vue";
 // import CarForm from "./CarForm.vue";
 
 export default {
   name: "GallaryCard",
   components: {
     VehicalCard,
+    NavagationBar,
     // CarForm
   },
   props: {
@@ -47,11 +53,11 @@ export default {
       // console.log("Iteam Id: ", data);
       let index = this.carsDetails.findIndex((item) => item.id === data);
       this.filteredData = this.carsDetails[index];
-      console.log('Editing data: ',this.filteredData);
-      
+      console.log("Editing data: ", this.filteredData);
     },
     saveFormdataHandler(formData) {
-      console.log(formData);
+      console.log("UpComing form data from navagation: ", JSON.parse(formData));
+      this.carsDetails.push(JSON.parse(formData));
     },
   },
 };
@@ -64,5 +70,6 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 </style>

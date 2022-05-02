@@ -35,7 +35,6 @@
             <div class="modal-body">
               <Form @submit="onSubmit" :validation-schema="schema">
                 <div>
-                  
                   <Field
                     id="heading"
                     name="heading"
@@ -48,13 +47,13 @@
 
                 <div>
                   <Field
-                    id="description"
-                    name="description"
+                    id="details"
+                    name="details"
                     type="text"
                     placeholder="Description Ex:- Owner of this Organization"
                     class="form-control"
                   />
-                  <ErrorMessage name="description" class="text-danger h6" />
+                  <ErrorMessage name="details" class="text-danger h6" />
                 </div>
 
                 <div>
@@ -70,13 +69,13 @@
 
                 <div>
                   <Field
-                    id="carimage"
-                    name="carimage"
+                    id="image"
+                    name="image"
                     type="text"
                     placeholder="Image Link Ex:- https://abc.com"
                     class="form-control"
                   />
-                  <ErrorMessage name="carimage" class="text-danger h6" />
+                  <ErrorMessage name="image" class="text-danger h6" />
                 </div>
 
                 <div>
@@ -86,7 +85,6 @@
                     type="number"
                     placeholder="Ex:- 123456 Only/-"
                     class="form-control"
-                    :value="value"
                   />
                   <ErrorMessage name="price" class="text-danger h6" />
                 </div>
@@ -106,7 +104,7 @@
 import { Field, Form, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 export default {
-  name: "ModalComponent",
+  name: "NavagationBar",
   components: {
     Field,
     Form,
@@ -119,9 +117,9 @@ export default {
     return {
       initialValues: {
         heading: "",
-        description: "",
-        specification: "",
+        details: "",
         image: "",
+        specs: "",
         price: "",
       },
     };
@@ -130,12 +128,17 @@ export default {
     logClickHandler() {
       console.log(this.upcomingData);
     },
+    onSubmit(values) {
+      // this.carsDetails.push = values;
+      alert(JSON.stringify(values, null, 2));
+      console.log("form values: ", values);
+      this.$emit("onFormSubmitHandler", JSON.stringify(values));
+    },
   },
-  
   setup() {
     const schema = yup.object().shape({
       heading: yup.string().required("Car heading is Required!"),
-      description: yup
+      details: yup
         .string()
         .required("Car Description is Required!")
         .min(30)
@@ -145,23 +148,15 @@ export default {
         .required("Car Specification is Required!")
         .min(12)
         .max(30),
-      carimage: yup
+      image: yup
         .string()
         .required("Car Image is Required!")
         .url("Car Image must be url Format!"),
       price: yup.number().required("Car Price is Required!"),
     });
 
-    function onSubmit(values) {
-      // this.carsDetails.push = values;
-      console.log("form values: ", values);
-      this.$emit("onFormSubmitHandler", JSON.stringify(values));
-      alert(JSON.stringify(values, null, 2));
-    }
-
     return {
       schema,
-      onSubmit,
     };
   },
 };
