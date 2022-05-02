@@ -10,6 +10,7 @@
         :vehicalData="car"
         @deleteIteam="deleteClickHandler"
         @editIteam="editClickHandler"
+        @editedIteam="editedClickHandler"
       />
     </div>
     <!-- <CarForm/> -->
@@ -27,15 +28,12 @@ export default {
   components: {
     VehicalCard,
     NavagationBar,
-    // CarForm
-  },
-  props: {
-    formData: Object,
   },
   data() {
     return {
       carsDetails: jsonData,
       filteredData: null,
+      editingIndex: null,
     };
   },
   methods: {
@@ -49,16 +47,21 @@ export default {
       let index = this.carsDetails.findIndex((item) => item.id === data);
       this.carsDetails.splice(index, 1);
     },
+      saveFormdataHandler(formData) {
+        console.log("UpComing form data from navagation: ", JSON.parse(formData));
+        this.carsDetails.push(JSON.parse(formData));
+      },
     editClickHandler(data) {
-      // console.log("Iteam Id: ", data);
+      console.log('data from edited form',data);
       let index = this.carsDetails.findIndex((item) => item.id === data);
-      this.filteredData = this.carsDetails[index];
-      console.log("Editing data: ", this.filteredData);
+      console.log(index);
+      this.editingIndex = index;
     },
-    saveFormdataHandler(formData) {
-      console.log("UpComing form data from navagation: ", JSON.parse(formData));
-      this.carsDetails.push(JSON.parse(formData));
-    },
+    editedClickHandler(edata){
+      console.log('edata: ',edata)
+      console.log('index that is editing now' , this.editingIndex)
+      this.carsDetails[this.editingIndex] = edata;
+    }
   },
 };
 </script>

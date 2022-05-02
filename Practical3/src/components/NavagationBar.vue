@@ -89,10 +89,11 @@
                   <ErrorMessage name="price" class="text-danger h6" />
                 </div>
 
-                <button class="btn btn-primary mt-3">Submit</button>
+                <button class="btn btn-secondary">Submit</button>
               </Form>
-              <button @click="logClickHandler">log</button>
             </div>
+
+            
           </div>
         </div>
       </div>
@@ -113,21 +114,7 @@ export default {
   props: {
     upcomingData: Object,
   },
-  data() {
-    return {
-      initialValues: {
-        heading: "",
-        details: "",
-        image: "",
-        specs: "",
-        price: "",
-      },
-    };
-  },
   methods: {
-    logClickHandler() {
-      console.log(this.upcomingData);
-    },
     onSubmit(values) {
       // this.carsDetails.push = values;
       alert(JSON.stringify(values, null, 2));
