@@ -35,6 +35,7 @@
             <div class="modal-body">
               <Form @submit="onSubmit" :validation-schema="schema">
                 <div>
+                  
                   <Field
                     id="heading"
                     name="heading"
@@ -85,12 +86,14 @@
                     type="number"
                     placeholder="Ex:- 123456 Only/-"
                     class="form-control"
+                    :value="value"
                   />
                   <ErrorMessage name="price" class="text-danger h6" />
                 </div>
 
                 <button class="btn btn-primary mt-3">Submit</button>
               </Form>
+              <button @click="logClickHandler">log</button>
             </div>
           </div>
         </div>
@@ -109,6 +112,26 @@ export default {
     Form,
     ErrorMessage,
   },
+  props: {
+    upcomingData: Object,
+  },
+  data() {
+    return {
+      initialValues: {
+        heading: "",
+        description: "",
+        specification: "",
+        image: "",
+        price: "",
+      },
+    };
+  },
+  methods: {
+    logClickHandler() {
+      console.log(this.upcomingData);
+    },
+  },
+  
   setup() {
     const schema = yup.object().shape({
       heading: yup.string().required("Car heading is Required!"),
@@ -130,11 +153,12 @@ export default {
     });
 
     function onSubmit(values) {
-      alert(JSON.stringify(values, null, 2));
       // this.carsDetails.push = values;
-      this.$emit("onFormSubmitHandler", values);
+      console.log("form values: ", values);
+      this.$emit("onFormSubmitHandler", JSON.stringify(values));
+      alert(JSON.stringify(values, null, 2));
     }
-    
+
     return {
       schema,
       onSubmit,

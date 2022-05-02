@@ -21,23 +21,16 @@
 
       <button v-else disabled class="disable_button">Available soon!</button>
 
-      <button
-        class="edit_button"
-        @click="editClickHandler(vehicalData.heading)"
-      >
-        Edit
-      </button>
-      <button class="delete_button" @click="deleteIteamData">Delete</button>
+      <button class="edit_button" @click="editClickHandler">Edit</button>
+      <button class="delete_button" @click="deleteClickHandler">Delete</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  // emits: ["deleteClickHandler"],
   props: {
     vehicalData: Object,
-    vehicalIndex: Number,
   },
   data() {
     return {};
@@ -46,9 +39,14 @@ export default {
     clickHandler(price, heading) {
       alert("Car Name: " + heading + "\n" + "Price is: " + price);
     },
-    deleteIteamData() {
-      console.log("delete item invoked");
-      this.$emit("deleteIteam", this.vehicalData.heading);
+    deleteClickHandler() {
+      console.log("Delete item invoked");
+      this.$emit("DeleteIteam", this.vehicalData.id);
+      // console.log(index)
+    },
+    editClickHandler() {
+      console.log("Edit item invoked");
+      this.$emit("editIteam", this.vehicalData.id);
       // console.log(index)
     },
   },

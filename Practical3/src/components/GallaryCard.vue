@@ -1,10 +1,11 @@
 <template>
-  <top-navagation @onFormSubmitHandler='saveFormdataHandler'/>
+  <top-navagation @onFormSubmitHandler="saveFormdataHandler" :upcomingData ="this.filteredData"/>
   <div class="flex_container">
     <div v-for="car in carsDetails" :key="car.id">
       <VehicalCard
         :vehicalData="car"
         @deleteIteam="deleteClickHandler"
+        @editIteam="editClickHandler"
       />
     </div>
     <!-- <CarForm/> -->
@@ -21,26 +22,37 @@ export default {
   components: {
     VehicalCard,
     // CarForm
-},
+  },
+  props: {
+    formData: Object,
+  },
   data() {
     return {
       carsDetails: jsonData,
+      filteredData: null,
     };
   },
   methods: {
     clickHandler(price, heading) {
-      alert("Car Name: " + heading + "\n" + "Price is: " + price);
-      console.log(this.carsDetails)
+      alert("Car Name: ", heading, "\n", "Price is: ", price);
+      console.log(this.carsDetails);
     },
     // --------------the emit used--------->
     deleteClickHandler(data) {
-      console.log("This is the id of iteam: " + data);
-      let specialIndex = this.carsDetails.findIndex( item => item.heading === data);
-      this.carsDetails.splice(specialIndex, 1);
+      // console.log("Iteam Id: ", data);
+      let index = this.carsDetails.findIndex((item) => item.id === data);
+      this.carsDetails.splice(index, 1);
     },
-    saveFormdataHandler(formData){
+    editClickHandler(data) {
+      // console.log("Iteam Id: ", data);
+      let index = this.carsDetails.findIndex((item) => item.id === data);
+      this.filteredData = this.carsDetails[index];
+      console.log('Editing data: ',this.filteredData);
+      
+    },
+    saveFormdataHandler(formData) {
       console.log(formData);
-    }
+    },
   },
 };
 </script>
