@@ -11,7 +11,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="AddCarFormLabel">Add Car</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" id="close_add_model" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -82,6 +82,7 @@
         alert(JSON.stringify(values, null, 2));
         console.log("form values: ", values);
         this.$emit("onFormSubmitHandler", JSON.stringify(values));
+        document.getElementById('close_add_model').click();
       },
     },
     setup() {
