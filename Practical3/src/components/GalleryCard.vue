@@ -6,6 +6,9 @@
       <div v-for="car in carsDetails" :key="car.id">
         <VehicalCard :vehicalData="car" @deleteIteam="deleteClickHandler" @vehicalId="vehicalEditClickHandler" :formHandeler="showForm"/>
       </div>
+      <div class="data_error">
+      {{carsDetails.length === 0 ? 'No data available' : ''}}
+      </div>
     </div>
   </div>
 </template>
@@ -66,5 +69,11 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+  }
+  .data_error{
+    color: red;
+    font-size: 20px;
+    font-weight: bolder;
+    padding: 10px;
   }
 </style>

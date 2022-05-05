@@ -1,14 +1,15 @@
 <template>
   <div>
-    <div v-if="formVisibility"  class="model_form">
+    <div v-if="formVisibility" class="model_form">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Update {{sd.heading}}</h5>
+            <h5 class="modal-title">Update {{ sd.heading }}</h5>
           </div>
           <div class="modal-body">
             <Form @submit="onEditSubmit" :validation-schema="schema">
               <div>
+                <label>Car Name</label>
                 <Field
                   id="heading"
                   name="heading"
@@ -21,6 +22,7 @@
               </div>
 
               <div>
+                <label>Details</label>
                 <Field
                   id="details"
                   name="details"
@@ -34,6 +36,7 @@
               </div>
 
               <div>
+                <label>Specification</label>
                 <Field
                   id="specs"
                   name="specs"
@@ -47,6 +50,7 @@
               </div>
 
               <div>
+                <label>Image Url</label>
                 <Field
                   id="image"
                   name="image"
@@ -54,12 +58,13 @@
                   placeholder="Image Link Ex:- https://abc.com"
                   class="form-control"
                   :value="sd.image"
-                  
+
                 />
                 <ErrorMessage name="image" class="text-danger h6" />
               </div>
 
               <div>
+                <label>Price</label>
                 <Field
                   id="price"
                   name="price"
@@ -67,6 +72,7 @@
                   placeholder="Ex:- 123456 Only/-"
                   class="form-control"
                   :value="sd.price"
+
                 />
                 <ErrorMessage name="price" class="text-danger h6" />
               </div>
@@ -106,9 +112,9 @@ export default {
     sd: Object,
   },
   data() {
-      return {
-          formHandler: true
-      }
+    return {
+      formHandler: true,
+    };
   },
 
   computed: {
@@ -117,19 +123,19 @@ export default {
         return this.formHandler;
       },
       set: function (newValue) {
-        return this.formHandler = newValue
+        return (this.formHandler = newValue);
       },
     },
   },
   methods: {
     closeClickHandler() {
-      this.$emit("formHandlerData", this.formHandler = false);
+      this.$emit("formHandlerData", (this.formHandler = false));
     },
     onEditSubmit(values) {
       values.id = Math.floor(Date.now() * Math.random());
       // alert(JSON.stringify(values, null, 2));
       this.$emit("editedIteam", values);
-      this.$emit("formHandlerData", this.formHandler = false);
+      this.$emit("formHandlerData", (this.formHandler = false));
     },
   },
 

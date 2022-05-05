@@ -46,7 +46,8 @@
         this.$emit("DeleteIteam", this.vehicalData.id);
       },
       editClickHandler() {
-        this.$emit("vehicalId", this.vehicalData.id , this.showForm=!this.showForm);
+        console.log("Form show value: ",this.showForm);
+        this.$emit("vehicalId", this.vehicalData.id , this.showForm=true);
       },
     },
   };
