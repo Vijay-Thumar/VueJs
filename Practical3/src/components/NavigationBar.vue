@@ -91,12 +91,12 @@
         details: yup
           .string()
           .required("Car Description is Required!")
-          .min(30)
+          .min(10)
           .max(120),
         specs: yup
           .string()
           .required("Car Specification is Required!")
-          .min(12)
+          .min(10)
           .max(30),
         image: yup
           .string()

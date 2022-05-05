@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import jsonData from "../data/jsonData.json";
+  import jsonData from "../carData/jsonData.json";
   import VehicalCard from "./VehicalCard.vue";
   import NavigationBar from "./NavigationBar.vue";
   import CarForm from "./CarForm.vue";
