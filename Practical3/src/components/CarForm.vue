@@ -140,12 +140,12 @@ export default {
         .string()
         .required("Car Description is Required!")
         .min(10)
-        .max(30),
+        .max(500),
       specs: yup
         .string()
         .required("Car Specification is Required!")
         .min(10)
-        .max(30),
+        .max(500),
       image: yup
         .string()
         .required("Car Image is Required!")
