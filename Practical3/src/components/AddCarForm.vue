@@ -107,7 +107,6 @@ export default {
       onSubmit(values) {
         // this.carsDetails.push = values;
         alert(JSON.stringify(values, null, 2));
-        console.log("form values: ", values);
         this.$emit("onFormSubmitHandler", JSON.stringify(values));
         document.getElementById("close_add_model").click();
       },
