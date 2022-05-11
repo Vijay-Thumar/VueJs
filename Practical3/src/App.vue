@@ -1,16 +1,15 @@
 <template>
-  <GalleryCard />
+<HomeComponent/>
 </template>
 
 <script>
-import GalleryCard from './components/GalleryCard.vue';
-
+import HomeComponent from "./components/HomeComponent.vue";
 export default {
   name: 'App',
   components: {
-    GalleryCard 
+    HomeComponent,
+  },
   }
-}
 </script>
 
 <style>
