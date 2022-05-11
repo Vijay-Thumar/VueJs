@@ -1,14 +1,14 @@
 <template>
-  <GalleryCard />
+  <GallaryCard />
 </template>
 
 <script>
-import GalleryCard from './components/GalleryCard.vue';
+import GallaryCard from './components/GallaryCard.vue';
 
 export default {
   name: 'App',
   components: {
-    GalleryCard 
+    GallaryCard 
   }
 }
 </script>
