@@ -1,13 +1,31 @@
 <template>
   <div>
-    <AddCarForm @onFormSubmitHandler="saveFormdataHandler" />
+    <Suspense>
+      <template #default>
+        <AddCarForm @onFormSubmitHandler="saveFormdataHandler" />
+      </template>
+      <template #fallback> Loading... </template>
+    </Suspense>
     <div class="flex_container">
-      <CarForm
-        @editedIteam="editedClickHandler"
-        :formVisibility="showForm"
-        :sd="this.filteredData"
-        @formHandlerData="closeFormHandler"
-      />
+      <Suspense>
+        <template #default>
+          <CarForm
+            @editedIteam="editedClickHandler"
+            :formVisibility="showForm"
+            :sd="this.filteredData"
+            @formHandlerData="closeFormHandler"
+          />
+        </template>
+        <template #fallback> Loading... </template>
+      </Suspense>
+
+      <!-- <button @click="showthecomponentHandler">
+        Click to load new component
+      </button>
+      <Suspense v-if="showthecomponent">
+        <template #default> <NewComponent /> </template>
+        <template #fallback> Loading..</template>
+        </Suspense> -->
 
       <div v-show="!apiError" v-for="car in carsDetails" :key="car.id">
         <VehicleCard
@@ -17,20 +35,21 @@
           :formHandeler="showForm"
         />
       </div>
+
       <div v-if="loading" class="data_error">Data is loading...</div>
-      <div v-if="apiError || carsDetails.length === 0" class="data_error">
-        <div v-if="!apiError">
-          {{
-            carsDetails.length === 0
-              ? "There is no car data. Please add car to see the result."
-              : ""
-          }}
-        </div>
-        <br />
-        <div v-if="apiError">
-          It’s not you. It’s us. Give it another try after sometime 😔. <br />
-          {{ apiError }}
-        </div>
+      <div
+        v-if="!apiError && carsDetails.length === 0 && !loading"
+        class="data_error"
+      >
+        {{
+          carsDetails.length === 0
+            ? "There is no car data. Please add car to see the result."
+            : ""
+        }}
+      </div>
+      <div v-if="apiError" class="data_error">
+        It’s not you. It’s us. Give it another try after sometime 😔. <br />
+        {{ apiError }}
       </div>
     </div>
   </div>
@@ -39,9 +58,14 @@
 <script>
 import jsonData from "../data/jsonData.json";
 import VehicleCard from "./VehicleCard.vue";
-import CarForm from "./CarForm.vue";
 import axios from "axios";
-import AddCarForm from "./AddCarForm.vue";
+
+// import AddCarForm from "./AddCarForm.vue";
+// import CarForm from "./CarForm.vue"; // The normal import
+import { defineAsyncComponent } from "vue";
+const CarForm = defineAsyncComponent(() => import("./CarForm.vue")); // The lazy import
+const AddCarForm = defineAsyncComponent(() => import("./AddCarForm.vue")); // The lazy import
+// const NewComponent = defineAsyncComponent(() => import("./NewComponent.vue"));
 
 export default {
   name: "GalleryCard",
@@ -49,6 +73,7 @@ export default {
     VehicleCard,
     CarForm,
     AddCarForm,
+    // NewComponent,
   },
   data() {
     return {
@@ -59,6 +84,7 @@ export default {
       apiError: null,
       vehicleID: null,
       loading: true,
+      showthecomponent: false,
     };
   },
   mounted() {
@@ -66,6 +92,9 @@ export default {
     this.fatchCarDetails();
   },
   methods: {
+    showthecomponentHandler() {
+      this.showthecomponent = true;
+    },
     async fatchCarDetails() {
       await axios
         .get("https://testapi.io/api/dartya/resource/cardata")
@@ -154,6 +183,7 @@ export default {
   align-items: center;
   flex-wrap: wrap;
 }
+
 .data_error {
   display: flex;
   align-items: center;

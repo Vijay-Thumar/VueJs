@@ -12,6 +12,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="AddCarFormLabel">Add Car</h5>
+
             <button
               type="button"
               id="close_add_model"
@@ -24,6 +25,8 @@
           </div>
 
           <div class="modal-body">
+            <button class="btn btn-primary" @click="changeSpec">Add Spec</button>
+
             <Form @submit="onSubmit" :validation-schema="schema">
               <div>
                 <label>Car Name</label>
@@ -49,7 +52,7 @@
                 <ErrorMessage name="details" class="text-danger h6" />
               </div>
 
-              <div>
+              <div v-if="showSpec">
                 <label>Specification</label>
                 <Field
                   id="specs"
@@ -103,14 +106,22 @@ export default {
     Form,
     ErrorMessage,
   },
+  data() {
+    return {
+      showSpec: false,
+    };
+  },
   methods: {
-      onSubmit(values) {
-        // this.carsDetails.push = values;
-        alert(JSON.stringify(values, null, 2));
-        this.$emit("onFormSubmitHandler", JSON.stringify(values));
-        document.getElementById("close_add_model").click();
-      },
+    changeSpec(){
+      this.showSpec = !this.showSpec;
     },
+    onSubmit(values) {
+      // this.carsDetails.push = values;
+      alert(JSON.stringify(values, null, 2));
+      this.$emit("onFormSubmitHandler", JSON.stringify(values));
+      document.getElementById("close_add_model").click();
+    },
+  },
   setup() {
     const schema = yup.object().shape({
       heading: yup.string().required("Car heading is Required!"),
