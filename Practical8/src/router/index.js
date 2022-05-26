@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import store from "../store";
 
 const routes = [
   {
@@ -6,6 +7,7 @@ const routes = [
     name: "Login",
     component: () =>
       import(/* webpackChunkName: "loginComponent" */ "../views/UserLogin.vue"),
+    meta: { auth: false },
   },
   {
     path: "/signup",
@@ -14,6 +16,7 @@ const routes = [
       import(
         /* webpackChunkName: "signupComponent" */ "../views/UserSignUp.vue"
       ),
+    meta: { auth: false },
   },
   {
     path: "/gallery",
@@ -22,12 +25,14 @@ const routes = [
       import(
         /* webpackChunkName: "galleryComponent" */ "../components/GalleryCard.vue"
       ),
+    meta: { auth: true },
   },
   {
     path: "/car/:id",
     name: "Car",
     component: () =>
       import(/* webpackChunkName: "myCarComponent" */ "../views/MyCar.vue"),
+    meta: { auth: true },
   },
   {
     path: "/:catchAll(.*)",
@@ -42,6 +47,18 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  console.log(store.state.userAuth);
+  console.log(to.meta.auth);
+  if ("auth" in to.meta && to.meta.auth && !store.state.userAuth) {
+    next("/");
+  } else if ("auth" in to.meta && !to.meta.auth && store.state.userAuth) {
+    next("gallery");
+  } else {
+    next();
+  }
 });
 
 export default router;
