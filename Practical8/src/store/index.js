@@ -128,6 +128,48 @@ const store = createStore({
         });
     },
   },
+
+  async loginUser({ commit }, payload) {
+    commit("setLoading", true);
+    await axios
+      .get("https://testapi.io/api/dartya/resource/users")
+      .then((res) => {
+        let allusers = res.data.data;
+        let user = allusers.find((user) => {
+          return (
+            user.email == payload.email && user.password == payload.password
+          );
+        });
+        commit("setLoading", false);
+        if (user == undefined) {
+          commit("setApiError", true);
+          setTimeout(() => {
+            commit("setApiError", false);
+          }, 4000);
+        } else {
+          commit("setUserAuth", true);
+          localStorage.setItem("userAuth", true);
+          router.push("/gallery");
+        }
+      });
+  },
+
+  async signupUser({ commit }, payload) {
+    commit("setLoading", true);
+    await axios
+      .post(`https://testapi.io/api/dartya/resource/users`, payload)
+      .then((response) => {
+        if (response.status == 201) {
+          router.push("/");
+        }
+        commit("setLoading", false);
+      })
+      .catch((error) => {
+        alert(error)
+        commit("setLoading", false);
+      });
+  },
+
   modules: {},
 });
 

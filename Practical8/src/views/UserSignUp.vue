@@ -74,6 +74,7 @@
 
         <button class="btn btn-primary">Submit</button>
       </Form>
+        <div v-if="loading">Hold On We Are signing you...</div>
       <br />
       <router-link to="/">
         <p class="login_text">Login now!</p>
@@ -85,7 +86,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     Form,
@@ -118,16 +119,17 @@ export default {
       schema,
     };
   },
+  computed: {
+    ...mapGetters({
+      loading: "getLoading"
+    })
+  },
   methods: {
+    ...mapActions({
+      signupUser: 'signupUser',
+    }),
     async onSubmit(values) {
-      await axios
-        .post(`https://testapi.io/api/dartya/resource/users`, values)
-        .then((response) => {
-          if (response.status == 201) {
-            this.$router.push("/");
-          }
-        })
-        .catch((error) => alert(error));
+      await this.signupUser(values);
     },
   },
 };

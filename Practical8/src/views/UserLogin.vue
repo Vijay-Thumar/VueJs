@@ -43,8 +43,8 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import axios from "axios";
 import gsap from 'gsap';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "UserLogin",
   setup() {
@@ -79,42 +79,21 @@ export default {
     });
     return {
       schema,
-      isErrorFound: false,
       isUserAuth: JSON.parse(localStorage.getItem("userAuth")),
-      loading: null,
     };
   },
-  created() {
-    if (this.isUserAuth === true) {
-      this.$router.push("/gallery");
-    }
+  computed:{
+    ...mapGetters({
+      loading: 'getLoading',
+      isErrorFound: 'getApiError',
+    })
   },
   methods: {
+    ...mapActions({
+      loginUser: 'loginUser',
+    }),
     async onSubmit(values) {
-      this.loading = true;
-
-      await axios
-        .get("https://testapi.io/api/dartya/resource/users")
-        .then((res) => {
-          let allusers = res.data.data;
-          let user = allusers.find((user) => {
-            return (
-              user.email == values.email && user.password == values.password
-            );
-          });
-          this.loading = false;
-          if (user == undefined) {
-            this.isErrorFound = true;
-            setTimeout(() => {
-              this.isErrorFound = false;
-            }, 4000);
-          } else {
-            document.cookie = "name=vijay; Max-Age="+10;
-            this.$store.dispatch("setUserAuth", true);
-            localStorage.setItem("userAuth", true);
-            this.$router.push("/gallery");
-          }
-        });
+      await this.loginUser(values);
     },
   },
 };
