@@ -79,7 +79,6 @@ export default {
     });
     return {
       schema,
-      isUserAuth: JSON.parse(localStorage.getItem("userAuth")),
     };
   },
   computed:{

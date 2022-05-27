@@ -145,11 +145,11 @@ const store = createStore({
         });
     },
 
-    async loginUser({ commit, dispatch }, payload) {
+    async loginUser({ commit }, payload) {
       commit("setLoading", true);
-      console.log("callAuth start");
-      dispatch("callAuth");
-      console.log("callAuth end");
+      // console.log("callAuth start");
+      // dispatch("callAuth");
+      // console.log("callAuth end");
       await axios
         .get("https://testapi.io/api/dartya/resource/users")
         .then((res) => {
@@ -168,23 +168,23 @@ const store = createStore({
           } else {
             commit("setUserAuth", true);
             localStorage.setItem("userAuth", true);
-            // router.push("/gallery");
+            router.push("/gallery");
           }
         });
     },
 
-    async callAuth() {
-      await axios
-        .post(
-          "https://www.mockbin.org/bin/94d8ae3c-0f40-4bb5-be7b-484fcd4238a3?foo=bar&foo=baz"
-        )
-        .then((res) => {
-          console.log("Responce from the callAuth: ", res);
-        })
-        .catch((err) => {
-          console.log("Responce error from callAuth: ", err);
-        });
-    },
+    // async callAuth() {
+    //   await axios
+    //     .post(
+    //       "https://www.mockbin.org/bin/94d8ae3c-0f40-4bb5-be7b-484fcd4238a3?foo=bar&foo=baz"
+    //     )
+    //     .then((res) => {
+    //       console.log("Responce from the callAuth: ", res);
+    //     })
+    //     .catch((err) => {
+    //       console.log("Responce error from callAuth: ", err);
+    //     });
+    // },
 
     // vv end of action vv
   },
