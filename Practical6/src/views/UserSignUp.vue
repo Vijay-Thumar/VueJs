@@ -138,7 +138,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .form_input{
   min-width:240px;
 }
