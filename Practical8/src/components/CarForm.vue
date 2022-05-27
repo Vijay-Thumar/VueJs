@@ -45,8 +45,8 @@
           </div>
         </div>
       </div>
-      <div v-if="loading"> Saving your data... </div>
-      <div v-if="apiErr"> {{apiErr}} </div>
+      <div v-if="loading" class="text-danger"> Saving your data... </div>
+      <div v-if="apiErr" class="text-danger"> {{apiErr}} </div>
     </div>
   </transition>
 </template>
@@ -170,7 +170,7 @@ export default {
 .model_form {
   z-index: 1072;
   position: fixed;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.85);
   overflow-x: hidden;
   overflow-y: auto;
   top: 0;

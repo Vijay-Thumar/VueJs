@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import router from "../router";
 
 const store = createStore({
   state: {
@@ -40,7 +41,7 @@ const store = createStore({
       state.loading = payload;
     },
     setApiError(state, payload) {
-      state.loading = payload;
+      state.apiError = payload;
     },
   },
   getters: {
@@ -83,12 +84,12 @@ const store = createStore({
             dispatch("fetchCarDetails");
           }
           commit("setLoading", false);
-          commit('setForm', this.state.formDetails.showForm = false)
+          commit("setForm", (this.state.formDetails.showForm = false));
         })
         .catch((err) => {
           commit("setLoading", false);
-          commit('setForm', this.state.formDetails.showForm = false)
-          alert("can't do the operation at this moment"+err);
+          commit("setForm", (this.state.formDetails.showForm = false));
+          alert("can't do the operation at this moment" + err);
         });
     },
 
@@ -104,12 +105,12 @@ const store = createStore({
             dispatch("fetchCarDetails");
           }
           commit("setLoading", false);
-          commit('setForm', this.state.formDetails.showForm = false)
+          commit("setForm", (this.state.formDetails.showForm = false));
         })
         .catch((err) => {
           commit("setLoading", false);
-          commit('setForm', this.state.formDetails.showForm = false)
-          alert("can't do the edit at this moment"+err);
+          commit("setForm", (this.state.formDetails.showForm = false));
+          alert("can't do the edit at this moment" + err);
         });
     },
 
@@ -127,47 +128,65 @@ const store = createStore({
           alert("can't delete at this moment" + err);
         });
     },
-  },
 
-  async loginUser({ commit }, payload) {
-    commit("setLoading", true);
-    await axios
-      .get("https://testapi.io/api/dartya/resource/users")
-      .then((res) => {
-        let allusers = res.data.data;
-        let user = allusers.find((user) => {
-          return (
-            user.email == payload.email && user.password == payload.password
-          );
+    async signupUser({ commit }, payload) {
+      commit("setLoading", true);
+      await axios
+        .post(`https://testapi.io/api/dartya/resource/users`, payload)
+        .then((response) => {
+          if (response.status == 201) {
+            router.push("/");
+          }
+          commit("setLoading", false);
+        })
+        .catch((error) => {
+          alert(error);
+          commit("setLoading", false);
         });
-        commit("setLoading", false);
-        if (user == undefined) {
-          commit("setApiError", true);
-          setTimeout(() => {
-            commit("setApiError", false);
-          }, 4000);
-        } else {
-          commit("setUserAuth", true);
-          localStorage.setItem("userAuth", true);
-          router.push("/gallery");
-        }
-      });
-  },
+    },
 
-  async signupUser({ commit }, payload) {
-    commit("setLoading", true);
-    await axios
-      .post(`https://testapi.io/api/dartya/resource/users`, payload)
-      .then((response) => {
-        if (response.status == 201) {
-          router.push("/");
-        }
-        commit("setLoading", false);
-      })
-      .catch((error) => {
-        alert(error)
-        commit("setLoading", false);
-      });
+    async loginUser({ commit, dispatch }, payload) {
+      commit("setLoading", true);
+      console.log("callAuth start");
+      dispatch("callAuth");
+      console.log("callAuth end");
+      await axios
+        .get("https://testapi.io/api/dartya/resource/users")
+        .then((res) => {
+          let allusers = res.data.data;
+          let user = allusers.find((user) => {
+            return (
+              user.email == payload.email && user.password == payload.password
+            );
+          });
+          commit("setLoading", false);
+          if (user == undefined) {
+            commit("setApiError", true);
+            setTimeout(() => {
+              commit("setApiError", false);
+            }, 4000);
+          } else {
+            commit("setUserAuth", true);
+            localStorage.setItem("userAuth", true);
+            // router.push("/gallery");
+          }
+        });
+    },
+
+    async callAuth() {
+      await axios
+        .post(
+          "https://www.mockbin.org/bin/94d8ae3c-0f40-4bb5-be7b-484fcd4238a3?foo=bar&foo=baz"
+        )
+        .then((res) => {
+          console.log("Responce from the callAuth: ", res);
+        })
+        .catch((err) => {
+          console.log("Responce error from callAuth: ", err);
+        });
+    },
+
+    // vv end of action vv
   },
 
   modules: {},

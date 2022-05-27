@@ -142,7 +142,7 @@ export default {
   justify-content: center;
   /* align-items: center; */
   background-color: rgb(230, 211, 247);
-  height: 60vh;
+  height: 40vh;
 }
 
 .form_section>div {
