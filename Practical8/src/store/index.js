@@ -173,18 +173,18 @@ const store = createStore({
         });
     },
 
-    // async callAuth() {
-    //   await axios
-    //     .post(
-    //       "https://www.mockbin.org/bin/94d8ae3c-0f40-4bb5-be7b-484fcd4238a3?foo=bar&foo=baz"
-    //     )
-    //     .then((res) => {
-    //       console.log("Responce from the callAuth: ", res);
-    //     })
-    //     .catch((err) => {
-    //       console.log("Responce error from callAuth: ", err);
-    //     });
-    // },
+    async callAuth() {
+      await axios
+        .post(
+          "https://www.mockbin.org/bin/94d8ae3c-0f40-4bb5-be7b-484fcd4238a3?foo=bar&foo=baz"
+        )
+        .then((res) => {
+          console.log("Responce from the callAuth: ", res);
+        })
+        .catch((err) => {
+          console.log("Responce error from callAuth: ", err);
+        });
+    },
 
     // vv end of action vv
   },

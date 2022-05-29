@@ -1,84 +1,116 @@
 <template>
-  <div class="Form_container">
-    <div>
-      <Form class="form_section" @submit="onSubmit" :validation-schema="schema">
-        <br />
-        <h2>Create an Account</h2>
+  <div class="body_container">
+    <div class="container-sm">
+      <Form class="form_container" @submit="onSubmit" :validation-schema="schema">
+        <h2 class="margin_tb mb-3 pt-3">Create an Account</h2>
         <div>
-          <div class="form_input">
-            <label class="form-label">Name</label>
-            <Field name="name" type="text" class="form-control" placeholder="" />
-            <ErrorMessage name="name" class="text-danger" />
-          </div>
-
-          <div class="form_input">
-            <label class="form-label">Email</label>
-            <Field name="email" type="email" class="form-control" />
-            <ErrorMessage name="email" class="text-danger" />
-          </div>
-
-          <div class="form_input">
-            <label class="form-label">Password</label>
-            <Field name="password" type="password" class="form-control" />
-            <ErrorMessage name="password" class="text-danger" />
-          </div>
-
-          <div class="form_input">
-            <label class="form-label">Confirm Password</label>
-            <Field type="password" name="cpassword" class="form-control" />
-            <ErrorMessage class="text-danger" name="cpassword" />
-          </div>
-
-          <div class="form_input">
-            <label class="form-label">Role</label>
-            <Field name="role" as="select" class="form-select form-control">
-              <option disabled>Select Role of user</option>
-              <option value="admin">Admin</option>
-              <option value="employee">Employee</option>
-              <option value="customer">Customer</option>
-            </Field>
-            <ErrorMessage class="text-danger" name="role" />
-          </div>
-          <div class="form_input">
-            <div class="flex_container">
-              <div>
-                <label>Gender: &nbsp;</label>
-              </div>
-              <div class="input_element">
-                <div>
-                  <label>Men: &nbsp;</label>
-                  <Field name="gender" type="radio" value="men" />
-                </div>
-                <br />
-                <div>
-                  <label>Women: &nbsp;</label>
-                  <Field name="gender" type="radio" value="women" /> &nbsp;
-                </div>
-              </div>
+          <div class="row mb-4">
+            <div class="col">
+              <label class="form-label">Name</label>
             </div>
-            <ErrorMessage class="text-danger" name="gender" />
+            <div class="col">
+              <Field name="name" type="text" class="form-control" placeholder="" />
+            </div>
+            <div class="col">
+              <ErrorMessage name="name" class="text-danger" />
+            </div>
           </div>
 
-          <div class="form_input">
-            <label class="form-label">Age: </label>
-            <Field name="age" type="number" class="form-control" />
-            <ErrorMessage class="text-danger" name="age" />
+          <div class="row mb-4">
+            <div class="col">
+              <label class="form-label">Email</label>
+            </div>
+            <div class="col">
+              <Field name="email" type="email" class="form-control" />
+            </div>
+            <div class="col">
+              <ErrorMessage name="email" class="text-danger" />
+            </div>
           </div>
 
-          <div class="form_input">
-            <label class="form-label">DOB</label>
-            <Field name="dob" type="date" class="form-control" />
-            <ErrorMessage class="text-danger" name="dob" />
+          <div class="row mb-4">
+            <div class="col">
+              <label class="form-label">Password</label>
+            </div>
+            <div class="col">
+              <Field name="password" type="password" class="form-control" />
+            </div>
+            <div class="col">
+              <ErrorMessage name="password" class="text-danger" />
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col">
+              <label class="form-label">Confirm Password</label>
+            </div>
+            <div class="col">
+              <Field type="password" name="cpassword" class="form-control" />
+            </div>
+            <div class="col">
+              <ErrorMessage class="text-danger" name="cpassword" />
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col">
+              <label class="form-label">Role</label>
+            </div>
+            <div class="col">
+              <Field name="role" as="select" class="form-select form-control">
+                <option disabled>Select Role of user</option>
+                <option value="admin">Admin</option>
+                <option value="employee">Employee</option>
+                <option value="customer">Customer</option>
+              </Field>
+            </div>
+            <div class="col">
+              <ErrorMessage class="text-danger" name="role" />
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-4">
+              <label>Gender: &nbsp;</label>
+            </div>
+            <div class="col-1">
+              <label>Men: &nbsp;</label>
+              <Field name="gender" type="radio" value="men" />
+            </div>
+            <div class="col-3">
+              <label>Women: &nbsp;</label>
+              <Field name="gender" type="radio" value="women" /> &nbsp;
+            </div>
+            <div class="col">
+              <ErrorMessage class="text-danger" name="gender" />
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col">
+            <label class="form-label">Age: </label></div>
+            <div class="col">
+            <Field name="age" type="number" class="form-control" /></div>
+            <div class="col">
+            <ErrorMessage class="text-danger" name="age" /></div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col">
+            <label class="form-label">DOB</label></div>
+            <div class="col">
+            <Field name="dob" type="date" class="form-control" /></div>
+            <div class="col">
+            <ErrorMessage class="text-danger" name="dob" /></div>
           </div>
         </div>
 
-        <button class="btn btn-primary">Submit</button>
+        <div class="col">
+          <button class="btn btn-primary">Submit</button>
+        </div>
+        <br>
       </Form>
-        <div v-if="loading">Hold On We Are signing you...</div>
-      <br />
-      <router-link to="/">
-        <p class="login_text">Login now!</p>
-      </router-link>
+      <div v-if="loading">Hold On We Are signing you...</div>
     </div>
   </div>
 </template>
@@ -135,40 +167,20 @@ export default {
 };
 </script>
 
-<style>
-.form_input {
-  min-width: 240px;
+<style scoped>
+.form_container {
+  /* background-color: rgb(210, 252, 167); */
+  background: linear-gradient(to right, #ff99ff 0%, #99ccff 100%);
+  border-radius: 24px;
+
 }
 
-.Form_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(230, 211, 247);
-}
+.body_container {
+  /* background-color: rgba(104, 158, 112, 0.407); */
+  background-color: rgba(104, 158, 112, 0.407);
+  background: linear-gradient(to left, #ff99ff 0%, #99ccff 100%);
 
-.form_section>div {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-  flex-direction: column;
-}
-
-.form_section>div>div {
-  margin: 10px 0;
-  background-color: antiquewhite;
-}
-
-.flex_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.input_element {
-  background-color: white;
+  height: 100vh;
 }
 
 a {

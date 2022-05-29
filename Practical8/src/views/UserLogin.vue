@@ -1,41 +1,42 @@
 <template>
-  <div class="Form_container">
-    <div>
-
-      <Form class="form_section" @submit="onSubmit" :validation-schema="schema">
-        <br />
-        <h2>User Login</h2>
-        <div>
-          <div>
-            <label class="form-label">Email: &nbsp; </label>
+  <div class="body_container">
+    <div class="container-sm">
+      <Form class="form_container" @submit="onSubmit" :validation-schema="schema">
+        <h2 class="margin_tb mb-3 pt-3">User Login</h2>
+        <div class="row mb-4">
+          <div class="col"><label class="form-label">Email: &nbsp; </label></div>
+          <div class="col">
             <Field name="email" type="text" class="form-control" placeholder="Enter Email address" />
+          </div>
+          <div class="col">
             <ErrorMessage name="email" class="text-danger" />
           </div>
-          <div>
-            <label class="form-label"> Password: &nbsp;</label>
+        </div>
+        <div class="row mb-4">
+          <div class="col"><label class="form-label"> Password: &nbsp;</label></div>
+          <div class="col">
             <Field name="password" type="password" class="form-control" placeholder="Enter Password" />
+          </div>
+          <div class="col">
             <ErrorMessage name="password" class="text-danger" />
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-        <span><br />&nbsp;</span>
+        <button type="submit" class="btn btn-primary mb-4">Login</button>
+        <router-link to="/signup">
+          <p class="login_text">Signup now!!</p>
+        </router-link>
+        <br>
       </Form>
-
-      <router-link to="/signup">
-        <p class="login_text">Signup now!!</p>
-      </router-link>
-
       <div v-show="loading || isErrorFound">
         <transition @before-enter="beforeEnter" @enter="enter" appear mode="out-in">
           <span class="text-danger" v-if="loading">
             We are checking the credentials please wait...
           </span>
           <span class="text-danger" v-else-if="isErrorFound">
-            ** User is not available! Please Signup vv
+            User is not available! Please Signup
           </span>
         </transition>
       </div>
-
     </div>
   </div>
 </template>
@@ -74,14 +75,14 @@ export default {
   },
   data() {
     const schema = yup.object({
-      email: yup.string().email().required("email is Required*"),
+      email: yup.string().email().required("Email is Required*"),
       password: yup.string().required("Password is Required"),
     });
     return {
       schema,
     };
   },
-  computed:{
+  computed: {
     ...mapGetters({
       loading: 'getLoading',
       isErrorFound: 'getApiError',
@@ -99,72 +100,19 @@ export default {
 </script>
 
 <style scoped>
-.errHand-enter-to,
-.errHand-leave-from {
-  opacity: 0;
-  transform: translatey(-10px);
+.form_container {
+  /* background-color: rgb(210, 252, 167); */
+  background: linear-gradient(to right, #ff99ff 0%, #99ccff 100%);
+  border-radius: 24px;
+
 }
 
-.errHand-leave-to,
-.errHand-enter-from {
-  opacity: 1;
-  transform: translatey(0px);
-}
+.body_container {
+  /* background-color: rgba(104, 158, 112, 0.407); */
+  background-color: rgba(104, 158, 112, 0.407);
+  background: linear-gradient(to left, #ff99ff 0%, #99ccff 100%);
 
-.errHand-enter-active,
-.errHand-leave-active {
-  transition: all 0.3s ease;
-}
-
-.form_section>div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-}
-
-.error_class {
-  position: absolute;
-  left: 10%;
-}
-
-.error_class2 {
-  position: absolute;
-  left: 10%;
-  top: 20%;
-}
-
-.Form_container {
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-  background-color: rgb(230, 211, 247);
-  height: 40vh;
-}
-
-.form_section>div {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-}
-
-.form_section>div>div {
-  margin: 10px 0;
-  background-color: antiquewhite;
-}
-
-.flex_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.input_element {
-  background-color: white;
+  height: 100vh;
 }
 
 a {
