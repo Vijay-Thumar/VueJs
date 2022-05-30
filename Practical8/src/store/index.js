@@ -1,18 +1,20 @@
 import { createStore } from "vuex";
 import axios from "axios";
 import router from "../router";
+import { useCookies } from "vue3-cookies";
+import jwtDecode from "jwt-decode";
+
+const { cookies } = useCookies();
 
 const store = createStore({
   state: {
-    // Api state
     allCars: [],
     loading: null,
     apiError: null,
 
-    // UserAuthenticate state
-    userAuth: JSON.parse(localStorage.getItem("userAuth")),
+    userAuth: cookies.isKey("localHostHelper"),
+    authUserName: null,
 
-    // form state
     formDetails: {
       showForm: false,
       formHeading: "",
@@ -43,6 +45,9 @@ const store = createStore({
     setApiError(state, payload) {
       state.apiError = payload;
     },
+    setAuthUserName(state, payload) {
+      state.authUserName = payload;
+    },
   },
   getters: {
     getUserAuth: (state) => state.userAuth,
@@ -50,9 +55,12 @@ const store = createStore({
     getCars: (state) => state.allCars,
     getLoading: (state) => state.loading,
     getApiError: (state) => state.apiError,
+    getAuthUserName: (state) => state.authUserName,
   },
   actions: {
     // This is used for Asunchronous
+    setAuthUserName: ({ commit }, payload) =>
+      commit("setAuthUserName", payload),
     setLoading: ({ commit }, state, payload) =>
       commit("setLoading", state, payload),
     setApiError: ({ commit }, state, payload) =>
@@ -64,7 +72,7 @@ const store = createStore({
     async fetchCarDetails({ commit }) {
       commit("setLoading", true);
       await axios
-        .get("https://testapi.io/api/dartya/resource/cardata")
+        .get(`${process.env.VUE_APP_CAR_DATA_API}`)
         .then((res) => {
           commit("setCars", res.data.data);
           commit("setLoading", false);
@@ -78,7 +86,7 @@ const store = createStore({
     async postCarDetails({ commit, dispatch }, payload) {
       commit("setLoading", true);
       await axios
-        .post("https://testapi.io/api/dartya/resource/cardata", payload)
+        .post(`${process.env.VUE_APP_CAR_DATA_API}`, payload)
         .then((res) => {
           if (res.status === 201) {
             dispatch("fetchCarDetails");
@@ -96,10 +104,7 @@ const store = createStore({
     async editCarDetails({ commit, dispatch }, payload) {
       commit("setLoading", true);
       await axios
-        .put(
-          `https://testapi.io/api/dartya/resource/cardata/${payload.id}`,
-          payload
-        )
+        .put(`${process.env.VUE_APP_CAR_DATA_API}/${payload.id}`, payload)
         .then((res) => {
           if (res.status === 200) {
             dispatch("fetchCarDetails");
@@ -117,7 +122,7 @@ const store = createStore({
     async deleteCarDetails({ commit, dispatch }, payload) {
       commit("setLoading", true);
       await axios
-        .delete(`https://testapi.io/api/dartya/resource/cardata/${payload}`)
+        .delete(`${process.env.VUE_APP_authUserNameCAR_DATA_API}/${payload}`)
         .then((res) => {
           if (res.status === 204) {
             dispatch("fetchCarDetails");
@@ -145,13 +150,10 @@ const store = createStore({
         });
     },
 
-    async loginUser({ commit }, payload) {
+    async loginUser({ commit, dispatch }, payload) {
       commit("setLoading", true);
-      // console.log("callAuth start");
-      // dispatch("callAuth");
-      // console.log("callAuth end");
       await axios
-        .get("https://testapi.io/api/dartya/resource/users")
+        .get(`https://testapi.io/api/dartya/resource/users`)
         .then((res) => {
           let allusers = res.data.data;
           let user = allusers.find((user) => {
@@ -159,34 +161,38 @@ const store = createStore({
               user.email == payload.email && user.password == payload.password
             );
           });
-          commit("setLoading", false);
           if (user == undefined) {
             commit("setApiError", true);
             setTimeout(() => {
               commit("setApiError", false);
             }, 4000);
           } else {
-            commit("setUserAuth", true);
-            localStorage.setItem("userAuth", true);
-            router.push("/gallery");
+            dispatch("callAuth");
           }
-        });
-    },
-
-    async callAuth() {
-      await axios
-        .post(
-          "https://www.mockbin.org/bin/94d8ae3c-0f40-4bb5-be7b-484fcd4238a3?foo=bar&foo=baz"
-        )
-        .then((res) => {
-          console.log("Responce from the callAuth: ", res);
         })
         .catch((err) => {
-          console.log("Responce error from callAuth: ", err);
+          alert(err);
         });
     },
 
-    // vv end of action vv
+    async callAuth({ commit }) {
+      await axios // https://www.mockbin.org/bin/b9d6e8f7-891d-43e5-91a6-bbe83de60ba8/view --> gui of bin api
+        .get("/bin/b9d6e8f7-891d-43e5-91a6-bbe83de60ba8?foo=bar&foo=baz")
+        .then((res) => {
+          if (res.status === 200) {
+            const myToken = cookies.get("localHostHelper");
+            const decodedToken = jwtDecode(myToken);
+            console.log(decodedToken);
+            commit("setAuthUserName", decodedToken.name);
+            commit("setUserAuth", true);
+            router.push("/gallery");
+            commit("setLoading", false);
+          }
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    },
   },
 
   modules: {},

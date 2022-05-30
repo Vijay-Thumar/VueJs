@@ -57,11 +57,6 @@ export default {
 	},
 	mounted() {
 		this.$store.dispatch("fetchCarDetails");
-
-		let localData = JSON.parse(localStorage.getItem("userAuth"));
-		if (localData == false) {
-			this.$router.push("/");
-		}
 	},
 	computed: {
 		...mapGetters({

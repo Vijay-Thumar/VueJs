@@ -9,7 +9,7 @@
               <label class="form-label">Name</label>
             </div>
             <div class="col">
-              <Field name="name" type="text" class="form-control" placeholder="" />
+              <Field name="name" type="text" class="form-control" placeholder="Enter Full Name" />
             </div>
             <div class="col">
               <ErrorMessage name="name" class="text-danger" />
@@ -21,7 +21,7 @@
               <label class="form-label">Email</label>
             </div>
             <div class="col">
-              <Field name="email" type="email" class="form-control" />
+              <Field name="email" type="email" class="form-control" placeholder="Enter Email address"/>
             </div>
             <div class="col">
               <ErrorMessage name="email" class="text-danger" />
@@ -33,7 +33,7 @@
               <label class="form-label">Password</label>
             </div>
             <div class="col">
-              <Field name="password" type="password" class="form-control" />
+              <Field name="password" type="password" class="form-control" placeholder="Enter Password"/>
             </div>
             <div class="col">
               <ErrorMessage name="password" class="text-danger" />
@@ -45,7 +45,7 @@
               <label class="form-label">Confirm Password</label>
             </div>
             <div class="col">
-              <Field type="password" name="cpassword" class="form-control" />
+              <Field type="password" name="cpassword" class="form-control" placeholder="Enter Confirm Password" />
             </div>
             <div class="col">
               <ErrorMessage class="text-danger" name="cpassword" />
@@ -57,7 +57,7 @@
               <label class="form-label">Role</label>
             </div>
             <div class="col">
-              <Field name="role" as="select" class="form-select form-control">
+              <Field name="role" as="select" class="form-select form-control" placeholder="Select Role">
                 <option disabled>Select Role of user</option>
                 <option value="admin">Admin</option>
                 <option value="employee">Employee</option>
@@ -90,7 +90,7 @@
             <div class="col">
             <label class="form-label">Age: </label></div>
             <div class="col">
-            <Field name="age" type="number" class="form-control" /></div>
+            <Field name="age" type="number" class="form-control" placeholder="Enter Age"/></div>
             <div class="col">
             <ErrorMessage class="text-danger" name="age" /></div>
           </div>
@@ -177,8 +177,7 @@ export default {
 
 .body_container {
   /* background-color: rgba(104, 158, 112, 0.407); */
-  background-color: rgba(104, 158, 112, 0.407);
-  background: linear-gradient(to left, #ff99ff 0%, #99ccff 100%);
+  /* background: linear-gradient(to left, #ff99ff 0%, #99ccff 100%); */
 
   height: 100vh;
 }

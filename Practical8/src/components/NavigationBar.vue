@@ -1,6 +1,9 @@
 <template>
   <div class="navigation_bar">
-    <div>The VueJs</div>
+    <transition @before-enter="beforeEnter" @enter="enter" appear>
+      <div v-if="authUserName"> Welcome: {{ authUserName }}</div>
+      <div v-else>The VueJS</div>
+    </transition>
 
     <div class="navigation">
       <nav>
@@ -43,9 +46,12 @@
 
 <script>
 import gsap from "gsap";
+import { useCookies } from "vue3-cookies";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "NavigationBar",
   setup() {
+    const { cookies } = useCookies();
     const beforeEnter = (el) => {
       el.style.opacity = 0;
       el.style.transform = "translatex(10px)";
@@ -65,27 +71,26 @@ export default {
     return {
       beforeEnter,
       enter,
+      cookies,
     };
   },
   computed: {
+    ...mapGetters({
+      authUserName: 'getAuthUserName'
+    }),
     userLoged() {
       return this.$store.getters.getUserAuth;
     },
   },
-  data() {
-    return {
-      isUserAuth: JSON.parse(localStorage.getItem("userAuth")),
-    };
-  },
-  mounted() {
-    if (this.isUserAuth === null || this.isUserAuth === "") {
-      localStorage.setItem("userAuth", false);
-    }
-  },
   methods: {
+    ...mapActions({
+      setAuthUserName: 'setAuthUserName',
+      setUserAuth: 'setUserAuth'
+    }),
     logoutClickHandler() {
-      this.$store.dispatch("setUserAuth", false);
-      localStorage.setItem("userAuth", false);
+      this.setUserAuth(false);
+      this.setAuthUserName(null);
+      this.cookies.remove("localHostHelper")
       this.$router.push("/");
     },
     addCarClickHandler() {

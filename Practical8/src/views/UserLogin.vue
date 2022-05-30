@@ -25,18 +25,19 @@
         <router-link to="/signup">
           <p class="login_text">Signup now!!</p>
         </router-link>
+        <div v-if="loading || isErrorFound">
+          <transition @before-enter="beforeEnter" @enter="enter" appear mode="out-in">
+            <span class="text-danger" v-if="loading">
+              We are checking the credentials please wait...
+            </span>
+            <span class="text-danger" v-else-if="isErrorFound">
+              User is not available! Please Signup
+            </span>
+          </transition>
+        </div>
+        <div v-else><br></div>
         <br>
       </Form>
-      <div v-show="loading || isErrorFound">
-        <transition @before-enter="beforeEnter" @enter="enter" appear mode="out-in">
-          <span class="text-danger" v-if="loading">
-            We are checking the credentials please wait...
-          </span>
-          <span class="text-danger" v-else-if="isErrorFound">
-            User is not available! Please Signup
-          </span>
-        </transition>
-      </div>
     </div>
   </div>
 </template>
@@ -46,9 +47,13 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import gsap from 'gsap';
 import { mapActions, mapGetters } from 'vuex';
+import { useCookies } from "vue3-cookies";
+
 export default {
   name: "UserLogin",
   setup() {
+    const { cookies } = useCookies();
+
     const beforeEnter = (el) => {
       el.style.opacity = 0;
       el.style.transform = "translatex(10px)";
@@ -65,8 +70,12 @@ export default {
     }
     return {
       beforeEnter,
-      enter
+      enter,
+      cookies,
     }
+  },
+  mounted() {
+    this.cookies.remove("localHostHelper")
   },
   components: {
     Form,
@@ -101,17 +110,13 @@ export default {
 
 <style scoped>
 .form_container {
-  /* background-color: rgb(210, 252, 167); */
   background: linear-gradient(to right, #ff99ff 0%, #99ccff 100%);
   border-radius: 24px;
 
 }
 
 .body_container {
-  /* background-color: rgba(104, 158, 112, 0.407); */
-  background-color: rgba(104, 158, 112, 0.407);
-  background: linear-gradient(to left, #ff99ff 0%, #99ccff 100%);
-
+  /* background: linear-gradient(to left, #ff99ff 0%, #99ccff 100%); */
   height: 100vh;
 }
 

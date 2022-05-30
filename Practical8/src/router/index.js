@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import store from "../store";
 
 const routes = [
@@ -45,13 +45,11 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(process.env.BASE_URL),
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 
 router.beforeEach((to, from, next) => {
-  // console.log(store.state.userAuth);
-  // console.log(to.meta.auth);
   if ("auth" in to.meta && to.meta.auth && !store.state.userAuth) {
     next("/");
   } else if ("auth" in to.meta && !to.meta.auth && store.state.userAuth) {
