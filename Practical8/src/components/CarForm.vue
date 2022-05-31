@@ -1,6 +1,6 @@
 <template>
   <transition @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
-    <div v-if="formDetails.showForm" class="model_form">
+    <div v-if="formDetails && formDetails.showForm" class="model_form">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -53,7 +53,7 @@
 
 <script>
 import { Field, Form, ErrorMessage } from "vee-validate";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import gsap from "gsap";
 import * as yup from "yup";
 export default {
@@ -69,17 +69,8 @@ export default {
       loading: "getLoading",
       apiErr: "getApiError",
     }),
-    // formDetails() {
-    //   return this.$store.getters.getForm;
-    // },
   },
   methods: {
-    ...mapActions({
-      setForm: 'setForm',
-      addCar: 'postCarDetails',
-      editCar: 'editCarDetails',
-    }),
-
     onSubmitHandler(values) {
       console.log(values)
       const action = this.formDetails.formAction;

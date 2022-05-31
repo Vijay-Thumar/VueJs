@@ -15,7 +15,7 @@
       </div>
 
       <div class="card-footer text-muted">
-        <button v-if="vehicleData.price" @click="infoClickHandler(vehicleData.price, vehicleData.name)"
+        <button v-if="vehicleData && vehicleData.price" @click="infoClickHandler(vehicleData.price, vehicleData.name)"
           class="btn btn-secondary mx-2 w-25">
           <i class="fa-solid fa-circle-info"></i>
         </button>

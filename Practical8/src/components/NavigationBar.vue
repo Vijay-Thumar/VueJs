@@ -47,7 +47,7 @@
 <script>
 import gsap from "gsap";
 import { useCookies } from "vue3-cookies";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "NavigationBar",
   setup() {
@@ -76,20 +76,14 @@ export default {
   },
   computed: {
     ...mapGetters({
-      authUserName: 'getAuthUserName'
+      authUserName: 'getAuthUserName',
+      userLoged: 'getUserAuth',
     }),
-    userLoged() {
-      return this.$store.getters.getUserAuth;
-    },
   },
   methods: {
-    ...mapActions({
-      setAuthUserName: 'setAuthUserName',
-      setUserAuth: 'setUserAuth'
-    }),
     logoutClickHandler() {
-      this.setUserAuth(false);
-      this.setAuthUserName(null);
+      this.$store.dispatch('setAuthUserName', null);
+      this.$store.dispatch('setUserAuth', false)
       this.cookies.remove("localHostHelper")
       this.$router.push("/");
     },

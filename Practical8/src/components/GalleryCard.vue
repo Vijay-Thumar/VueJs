@@ -65,7 +65,6 @@ export default {
 			apiError: 'getApiError'
 		}),
 	},
-	methods: {},
 };
 </script>
 
