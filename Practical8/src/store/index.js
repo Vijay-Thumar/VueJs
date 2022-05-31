@@ -72,7 +72,7 @@ const store = createStore({
     async fetchCarDetails({ commit }) {
       commit("setLoading", true);
       await axios
-        .get(`${process.env.VUE_APP_CAR_DATA_API}`)
+        .get(`https://testapi.io/api/dartya/resource/cardata`)
         .then((res) => {
           commit("setCars", res.data.data);
           commit("setLoading", false);
@@ -86,7 +86,7 @@ const store = createStore({
     async postCarDetails({ commit, dispatch }, payload) {
       commit("setLoading", true);
       await axios
-        .post(`${process.env.VUE_APP_CAR_DATA_API}`, payload)
+        .post(`https://testapi.io/api/dartya/resource/cardata`, payload)
         .then((res) => {
           if (res.status === 201) {
             dispatch("fetchCarDetails");
@@ -104,7 +104,10 @@ const store = createStore({
     async editCarDetails({ commit, dispatch }, payload) {
       commit("setLoading", true);
       await axios
-        .put(`${process.env.VUE_APP_CAR_DATA_API}/${payload.id}`, payload)
+        .put(
+          `https://testapi.io/api/dartya/resource/cardata/${payload.id}`,
+          payload
+        )
         .then((res) => {
           if (res.status === 200) {
             dispatch("fetchCarDetails");
@@ -152,7 +155,7 @@ const store = createStore({
 
     async loginUser({ commit, dispatch }, payload) {
       commit("setLoading", true);
-      await axios
+      const response = await axios
         .get(`https://testapi.io/api/dartya/resource/users`)
         .then((res) => {
           let allusers = res.data.data;
@@ -162,17 +165,20 @@ const store = createStore({
             );
           });
           if (user == undefined) {
+            commit("setLoading", false); 
             commit("setApiError", true);
-            setTimeout(() => {
-              commit("setApiError", false);
-            }, 4000);
+            return res.status = 404;
+            
           } else {
             dispatch("callAuth");
+            return res;
           }
         })
         .catch((err) => {
+          console.log(err)
           alert(err);
         });
+      return response;
     },
 
     async callAuth({ commit }) {
@@ -182,7 +188,6 @@ const store = createStore({
           if (res.status === 200) {
             const myToken = cookies.get("localHostHelper");
             const decodedToken = jwtDecode(myToken);
-            console.log(decodedToken);
             commit("setAuthUserName", decodedToken.name);
             commit("setUserAuth", true);
             router.push("/gallery");

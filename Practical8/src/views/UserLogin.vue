@@ -46,7 +46,7 @@
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import gsap from 'gsap';
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import { useCookies } from "vue3-cookies";
 
 export default {
@@ -98,11 +98,34 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
-      loginUser: 'loginUser',
-    }),
-    async onSubmit(values) {
-      await this.loginUser(values);
+    onSubmit(values) {
+      // this.$store.dispatch('loginUser', values)
+      const promise = this.$store.dispatch("loginUser", values);
+      promise
+        .then((res) => {
+          if (res.status === 200) {
+            console.log('if section')
+            this.$toast.success(`Login successful`, {
+              position: "top-right",
+              duration: 1500,
+            });
+          } else {
+            this.$toast.error(`User Not Found`, {
+              position: "top-right",
+              duration: 1500,
+            });
+            setTimeout(() => {
+              this.$store.dispatch('setApiError', false)
+            }, 1700);
+          }
+        })
+        .catch((error) => {
+          console.log('err section')
+          this.$toast.error(error.message, {
+            position: "top-right",
+            duration: 2000,
+          });
+        });
     },
   },
 };
