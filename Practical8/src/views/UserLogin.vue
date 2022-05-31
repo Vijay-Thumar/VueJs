@@ -104,7 +104,6 @@ export default {
       promise
         .then((res) => {
           if (res.status === 200) {
-            console.log('if section')
             this.$toast.success(`Login successful`, {
               position: "top-right",
               duration: 1500,
@@ -120,7 +119,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log('err section')
           this.$toast.error(error.message, {
             position: "top-right",
             duration: 2000,

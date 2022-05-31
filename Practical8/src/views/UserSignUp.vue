@@ -21,7 +21,7 @@
               <label class="form-label">Email</label>
             </div>
             <div class="col">
-              <Field name="email" type="email" class="form-control" placeholder="Enter Email address"/>
+              <Field name="email" type="email" class="form-control" placeholder="Enter Email address" />
             </div>
             <div class="col">
               <ErrorMessage name="email" class="text-danger" />
@@ -33,7 +33,7 @@
               <label class="form-label">Password</label>
             </div>
             <div class="col">
-              <Field name="password" type="password" class="form-control" placeholder="Enter Password"/>
+              <Field name="password" type="password" class="form-control" placeholder="Enter Password" />
             </div>
             <div class="col">
               <ErrorMessage name="password" class="text-danger" />
@@ -73,7 +73,7 @@
             <div class="col-4">
               <label>Gender: &nbsp;</label>
             </div>
-            <div class="col-1">
+            <div class="col-2">
               <label>Men: &nbsp;</label>
               <Field name="gender" type="radio" value="men" />
             </div>
@@ -88,20 +88,26 @@
 
           <div class="row mb-4">
             <div class="col">
-            <label class="form-label">Age: </label></div>
+              <label class="form-label">Age: </label>
+            </div>
             <div class="col">
-            <Field name="age" type="number" class="form-control" placeholder="Enter Age"/></div>
+              <Field name="age" type="number" class="form-control" placeholder="Enter Age" />
+            </div>
             <div class="col">
-            <ErrorMessage class="text-danger" name="age" /></div>
+              <ErrorMessage class="text-danger" name="age" />
+            </div>
           </div>
 
           <div class="row mb-4">
             <div class="col">
-            <label class="form-label">DOB</label></div>
+              <label class="form-label">DOB</label>
+            </div>
             <div class="col">
-            <Field name="dob" type="date" class="form-control" /></div>
+              <Field name="dob" type="date" class="form-control" />
+            </div>
             <div class="col">
-            <ErrorMessage class="text-danger" name="dob" /></div>
+              <ErrorMessage class="text-danger" name="dob" />
+            </div>
           </div>
         </div>
 
@@ -160,8 +166,21 @@ export default {
     ...mapActions({
       signupUser: 'signupUser',
     }),
-    async onSubmit(values) {
-      await this.signupUser(values);
+    onSubmit(values) {
+      const promise = this.$store.dispatch('signupUser', values)
+      promise.then((response) => {
+        if (response === 201) {
+          this.$toast.success(`SignUp successful`, {
+            position: "top-right",
+            duration: 1500,
+          });
+        } else {
+          this.$toast.error('Fail to Create User!', response, {
+            position: "top-right",
+            duration: 1500,
+          });
+        }
+      })
     },
   },
 };

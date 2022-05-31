@@ -85,25 +85,28 @@ const store = createStore({
 
     async postCarDetails({ commit, dispatch }, payload) {
       commit("setLoading", true);
-      await axios
-        .post(`https://testapi.io/api/dartya/resource/cardata`, payload)
+      const res = await axios
+        .post("https://testapi.io/api/dartya/resource/cardata", payload)
         .then((res) => {
           if (res.status === 201) {
             dispatch("fetchCarDetails");
           }
           commit("setLoading", false);
           commit("setForm", (this.state.formDetails.showForm = false));
+          return res;
         })
         .catch((err) => {
+          console.log(err)
           commit("setLoading", false);
           commit("setForm", (this.state.formDetails.showForm = false));
-          alert("can't do the operation at this moment" + err);
+          return err;
         });
+      return res;
     },
 
     async editCarDetails({ commit, dispatch }, payload) {
       commit("setLoading", true);
-      await axios
+     const res=  await axios
         .put(
           `https://testapi.io/api/dartya/resource/cardata/${payload.id}`,
           payload
@@ -114,49 +117,55 @@ const store = createStore({
           }
           commit("setLoading", false);
           commit("setForm", (this.state.formDetails.showForm = false));
+          return res;
         })
         .catch((err) => {
           commit("setLoading", false);
           commit("setForm", (this.state.formDetails.showForm = false));
-          alert("can't do the edit at this moment" + err);
+          return err;
         });
+        return res;
     },
 
     async deleteCarDetails({ commit, dispatch }, payload) {
       commit("setLoading", true);
-      await axios
-        .delete(`${process.env.VUE_APP_authUserNameCAR_DATA_API}/${payload}`)
+      const res =await axios
+        .delete(`https://testapi.io/api/dartya/resource/cardata/${payload}`)
         .then((res) => {
           if (res.status === 204) {
             dispatch("fetchCarDetails");
           }
           commit("setLoading", false);
+          return res;
         })
         .catch((err) => {
-          alert("can't delete at this moment" + err);
+          return err;
         });
+        return res;
     },
 
     async signupUser({ commit }, payload) {
       commit("setLoading", true);
-      await axios
-        .post(`https://testapi.io/api/dartya/resource/users`, payload)
+      const response = await axios
+        .post("https://testapi.io/api/dartya/resource/users", payload)
         .then((response) => {
           if (response.status == 201) {
             router.push("/");
+            return response;
           }
           commit("setLoading", false);
         })
         .catch((error) => {
-          alert(error);
           commit("setLoading", false);
+          return error;
         });
+      return response;
     },
 
     async loginUser({ commit, dispatch }, payload) {
       commit("setLoading", true);
       const response = await axios
-        .get(`https://testapi.io/api/dartya/resource/users`)
+        .get("https://testapi.io/api/dartya/resource/users")
         .then((res) => {
           let allusers = res.data.data;
           let user = allusers.find((user) => {
@@ -165,17 +174,16 @@ const store = createStore({
             );
           });
           if (user == undefined) {
-            commit("setLoading", false); 
+            commit("setLoading", false);
             commit("setApiError", true);
-            return res.status = 404;
-            
+            return (res.status = 404);
           } else {
             dispatch("callAuth");
             return res;
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           alert(err);
         });
       return response;

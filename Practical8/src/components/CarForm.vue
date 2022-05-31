@@ -46,7 +46,7 @@
         </div>
       </div>
       <div v-if="loading" class="text-danger"> Saving your data... </div>
-      <div v-if="apiErr" class="text-danger"> {{apiErr}} </div>
+      <div v-if="apiErr" class="text-danger"> {{ apiErr }} </div>
     </div>
   </transition>
 </template>
@@ -62,13 +62,6 @@ export default {
     Field,
     Form,
     ErrorMessage,
-  },
-  props: {
-    initialValues: Object,
-    formHeading: String,
-    formSubmitHandler: Function,
-    formVisibility: Boolean,
-    formVisibilityHandler: Function,
   },
   computed: {
     ...mapGetters({
@@ -88,16 +81,43 @@ export default {
     }),
 
     onSubmitHandler(values) {
-      alert(JSON.stringify(values));
+      console.log(values)
       const action = this.formDetails.formAction;
       this.formDetails.formInitialValue = values;
-      // this.formDetails.showForm = false;
-      this.setForm(this.formDetails);
+      this.$store.dispatch('setForm', this.formDetails)
 
       if (action === 'add') {
-        this.addCar(values)
+        values.id = null
+        const res = this.$store.dispatch('postCarDetails', values)
+        res.then((res) => {
+          if (res === 201) {
+            this.$toast.success('Car Added.', {
+              position: "top-right",
+              duration: 1000,
+            })
+          }
+          else {
+            this.$toast.error('Fail to add Car!', {
+              position: 'top-right',
+              duration: 2000
+            })
+          }
+        })
       } else {
-        this.editCar(values)
+        const res = this.$store.dispatch('editCarDetails', values)
+        res.then((res) => {
+          if (res.status === 200) {
+            this.$toast.success('Modification is Applied', {
+              position: 'top-right',
+              duration: 1000
+            })
+          }else{
+             this.$toast.error('Cannot Modify!', {
+              position: 'top-right',
+              duration: 2000
+            })
+          }
+        })
       }
     },
 

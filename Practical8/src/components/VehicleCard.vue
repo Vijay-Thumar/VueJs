@@ -54,7 +54,22 @@ export default {
     },
 
     deleteClickHandler(id) {
-      this.deleteCar(id)
+     const res= this.deleteCar(id)
+     res.then((res)=>{
+       if (res.status === 204) {
+         this.$toast.success('Delete was Successfull',{
+           position: 'top-right',
+           duration: 1000
+         })
+       }else{
+         this.$toast.error('Canno\'t Delete Car',{
+           position: 'top-right',
+          duration: 2000
+         })
+       }
+
+     })
+
     },
 
     editClickHandler() {
