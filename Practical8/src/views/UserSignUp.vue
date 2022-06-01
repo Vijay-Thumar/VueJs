@@ -124,7 +124,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import { mapActions, mapGetters } from "vuex";
+import {  mapGetters } from "vuex";
 export default {
   components: {
     Form,
@@ -159,15 +159,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: "getLoading"
+      loading: `form/getLoading`
     })
   },
   methods: {
-    ...mapActions({
-      signupUser: 'signupUser',
-    }),
     onSubmit(values) {
-      const promise = this.$store.dispatch('signupUser', values)
+      const promise = this.$store.dispatch(`auth/signupUser`, values)
       promise.then((response) => {
         if (response === 201) {
           this.$toast.success(`SignUp successful`, {

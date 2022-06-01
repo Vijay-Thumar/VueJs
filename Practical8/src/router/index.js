@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import store from "../store";
+import {auth} from "../store/modules/auth";
 
 const routes = [
   {
@@ -50,9 +50,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if ("auth" in to.meta && to.meta.auth && !store.state.userAuth) {
+  if ("auth" in to.meta && to.meta.auth && !auth.state.userAuth) {
     next("/");
-  } else if ("auth" in to.meta && !to.meta.auth && store.state.userAuth) {
+  } else if ("auth" in to.meta && !to.meta.auth && auth.state.userAuth) {
     next("gallery");
   } else {
     next();

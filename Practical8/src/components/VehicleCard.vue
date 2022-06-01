@@ -37,24 +37,17 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 export default {
   props: {
     vehicleData: Object,
   },
   methods: {
-    ...mapActions({
-      deleteCar: 'deleteCarDetails',
-      setForm: 'setForm',
-
-    }),
-
     infoClickHandler(price, name) {
       alert("Car Name: " + name + "\n" + "Price is: " + price);
     },
 
     deleteClickHandler(id) {
-     const res= this.deleteCar(id)
+     const res= this.$store.dispatch(`form/deleteCarDetails`,id)
      res.then((res)=>{
        if (res.status === 204) {
          this.$toast.success('Delete was Successfull',{
@@ -85,7 +78,7 @@ export default {
           price: this.vehicleData.price,
         },
       };
-      this.setForm(formDetails);
+      this.$store.dispatch(`form/setForm`,formDetails)
     },
   },
 };

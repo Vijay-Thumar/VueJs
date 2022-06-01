@@ -65,21 +65,22 @@ export default {
   },
   computed: {
     ...mapGetters({
-      formDetails: 'getForm',
-      loading: "getLoading",
-      apiErr: "getApiError",
+      formDetails: `form/getForm`,
+      loading: `form/getLoading`,
+      apiErr: `form/getApiError`,
     }),
   },
   methods: {
     onSubmitHandler(values) {
-      console.log(values)
       const action = this.formDetails.formAction;
+
       this.formDetails.formInitialValue = values;
-      this.$store.dispatch('setForm', this.formDetails)
+
+      this.$store.dispatch(`form/setForm`, this.formDetails)
 
       if (action === 'add') {
         values.id = null
-        const res = this.$store.dispatch('postCarDetails', values)
+        const res = this.$store.dispatch(`form/postCarDetails`, values)
         res.then((res) => {
           if (res === 201) {
             this.$toast.success('Car Added.', {
@@ -95,7 +96,7 @@ export default {
           }
         })
       } else {
-        const res = this.$store.dispatch('editCarDetails', values)
+        const res = this.$store.dispatch(`form/editCarDetails`, values)
         res.then((res) => {
           if (res.status === 200) {
             this.$toast.success('Modification is Applied', {
@@ -114,7 +115,7 @@ export default {
 
     closeFormHandler() {
       this.formDetails.showForm = false;
-      this.$store.dispatch("setForm", this.formDetails);
+      this.$store.dispatch(`form/setForm`, this.formDetails);
     },
 
   },

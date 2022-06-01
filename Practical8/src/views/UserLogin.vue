@@ -93,14 +93,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loading: 'getLoading',
-      isErrorFound: 'getApiError',
+      loading: `form/getLoading`,
+      isErrorFound: `form/getApiError`,
     })
   },
   methods: {
     onSubmit(values) {
-      // this.$store.dispatch('loginUser', values)
-      const promise = this.$store.dispatch("loginUser", values);
+      const promise = this.$store.dispatch(`auth/loginUser`, values);
       promise
         .then((res) => {
           if (res.status === 200) {
@@ -114,7 +113,7 @@ export default {
               duration: 1500,
             });
             setTimeout(() => {
-              this.$store.dispatch('setApiError', false)
+              this.$store.dispatch(`form/setApiError`, false)
             }, 1700);
           }
         })

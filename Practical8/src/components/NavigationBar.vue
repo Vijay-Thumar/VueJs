@@ -76,14 +76,14 @@ export default {
   },
   computed: {
     ...mapGetters({
-      authUserName: 'getAuthUserName',
-      userLoged: 'getUserAuth',
+      authUserName: `auth/getAuthUserName`,
+      userLoged: `auth/getUserAuth`,
     }),
   },
   methods: {
     logoutClickHandler() {
-      this.$store.dispatch('setAuthUserName', null);
-      this.$store.dispatch('setUserAuth', false)
+      this.$store.dispatch(`auth/setAuthUserName`, null);
+      this.$store.dispatch(`auth/setUserAuth`, false)
       this.cookies.remove("localHostHelper")
       this.$router.push("/");
     },
@@ -100,7 +100,7 @@ export default {
           price: null,
         },
       };
-      this.$store.dispatch("setForm", formDetails);
+      this.$store.dispatch(`form/setForm`, formDetails);
     },
   },
 };

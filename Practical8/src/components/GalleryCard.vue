@@ -56,13 +56,13 @@ export default {
 		CarForm,
 	},
 	mounted() {
-		this.$store.dispatch("fetchCarDetails");
+		this.$store.dispatch(`form/fetchCarDetails`);
 	},
 	computed: {
 		...mapGetters({
-			carsDetails: 'getCars',
-			loading: 'getLoading',
-			apiError: 'getApiError'
+			carsDetails: `form/getCars`,
+			loading: `form/getLoading`,
+			apiError: `form/getApiError`
 		}),
 	},
 };
