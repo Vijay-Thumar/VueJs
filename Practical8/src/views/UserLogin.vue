@@ -38,6 +38,8 @@
         <div v-else><br></div>
         <br>
       </Form>
+      <br><br><br><br><br><br>
+      {{userAuthData}}
     </div>
   </div>
 </template>
@@ -95,6 +97,7 @@ export default {
     ...mapGetters({
       loading: `form/getLoading`,
       isErrorFound: `form/getApiError`,
+      userAuthData: `auth/getAuthData`
     })
   },
   methods: {

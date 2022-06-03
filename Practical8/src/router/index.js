@@ -50,6 +50,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+
+
   if ("auth" in to.meta && to.meta.auth && !auth.state.userAuth) {
     next("/");
   } else if ("auth" in to.meta && !to.meta.auth && auth.state.userAuth) {
