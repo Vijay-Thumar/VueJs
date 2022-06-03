@@ -43,11 +43,9 @@ export const form = {
   },
   actions: {
     // This is used for Asunchronous
-    setLoading: ({ commit }, state, payload) =>
-      commit("setLoading", state, payload),
-    setApiError: ({ commit }, state, payload) =>
-      commit("setApiError", state, payload),
-    setForm: ({ commit }, state, payload) => commit("setForm", state, payload),
+    setLoading: ({ commit }, payload) => commit("setLoading", payload),
+    setApiError: ({ commit }, payload) => commit("setApiError", payload),
+    setForm: ({ commit }, payload) => commit("setForm", payload),
 
     async fetchCarDetails({ commit }) {
       commit("setLoading", true);

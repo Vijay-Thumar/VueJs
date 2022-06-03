@@ -51,12 +51,12 @@ export default {
      res.then((res)=>{
        if (res.status === 204) {
          this.$toast.success('Delete was Successfull',{
-           position: 'top-right',
+           position: 'bottom-right',
            duration: 1000
          })
        }else{
          this.$toast.error('Canno\'t Delete Car',{
-           position: 'top-right',
+           position: 'bottom-right',
           duration: 2000
          })
        }

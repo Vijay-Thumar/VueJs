@@ -1,11 +1,13 @@
 <template>
   <div>
     <NavigationBar />
-    <router-view v-slot="{ Component }">
+    <div class="m-2">
+      <router-view v-slot="{ Component }">
       <transition name="route" mode="out-in">
         <Component :is="Component"></Component>
       </transition>
     </router-view>
+    </div>
   </div>
 </template>
 

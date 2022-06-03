@@ -85,6 +85,10 @@ export default {
       this.$store.dispatch(`auth/setAuthUserName`, null);
       this.$store.dispatch(`auth/setUserAuth`, false)
       this.cookies.remove("localHostHelper")
+      this.$toast.success('logout successful', {
+              position: 'bottom-right',
+              duration: 2000
+            })
       this.$router.push("/");
     },
     addCarClickHandler() {
@@ -118,7 +122,6 @@ export default {
   font-weight: 600;
   /* border-radius: 50px; */
   padding: 0 80px;
-  margin-top: 2px;
 }
 
 .navigation {

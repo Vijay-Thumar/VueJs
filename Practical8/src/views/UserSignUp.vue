@@ -124,7 +124,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import {  mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   components: {
     Form,
@@ -165,20 +165,32 @@ export default {
   methods: {
     onSubmit(values) {
       const promise = this.$store.dispatch(`auth/signupUser`, values)
-      promise.then((response) => {
-        if (response === 201) {
-          this.$toast.success(`SignUp successful`, {
-            position: "top-right",
+      promise.then((res) => {
+        if (res.status === 201) {
+
+          const res = this.$store.dispatch(`auth/signUpAuth`, values);
+          res.then((res) => {
+            if (res.status === 200) {
+              this.$toast.success(`SignUp successful with auth`, {
+                position: "bottom-right",
+                duration: 1500,
+              });
+            } else{
+              this.$toast.error(res.response.data.error.message, {
+            position: "bottom-right",
             duration: 1500,
           });
-        } else {
-          this.$toast.error('Fail to Create User!', response, {
-            position: "top-right",
-            duration: 1500,
+            }
           });
-        }
-      })
-    },
+
+    } else {
+      this.$toast.error('Fail to Create User!', res, {
+        position: "bottom-right",
+        duration: 1500,
+      });
+    }
+  })
+},
   },
 };
 </script>

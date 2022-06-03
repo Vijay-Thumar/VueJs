@@ -38,8 +38,6 @@
         <div v-else><br></div>
         <br>
       </Form>
-      <br><br><br><br><br><br>
-      {{userAuthData}}
     </div>
   </div>
 </template>
@@ -105,14 +103,31 @@ export default {
       const promise = this.$store.dispatch(`auth/loginUser`, values);
       promise
         .then((res) => {
-          if (res.status === 200) {
-            this.$toast.success(`Login successful`, {
-              position: "top-right",
-              duration: 1500,
-            });
-          } else {
+          if (res && res.status === 200) {
+            const another = this.$store.dispatch(`auth/callAuth`, values);
+            another
+              .then((res) => {
+                if (res.status == 200) {
+                  this.$toast.success(`Login successful with auth`, {
+                    position: "bottom-right",
+                    duration: 1500,
+                  });
+                } else {
+                  this.$toast.error(res.response.data.error.message, {
+                    position: "bottom-right",
+                    duration: 1500,
+                  });
+                }
+              })
+              .catch((err) => {
+                this.$toast.error(err, {
+                  position: "bottom-right",
+                  duration: 1500,
+                });
+              })
+          } else if (res === 404) {
             this.$toast.error(`User Not Found`, {
-              position: "top-right",
+              position: "bottom-right",
               duration: 1500,
             });
             setTimeout(() => {
@@ -122,7 +137,7 @@ export default {
         })
         .catch((error) => {
           this.$toast.error(error.message, {
-            position: "top-right",
+            position: "bottom-right",
             duration: 2000,
           });
         });

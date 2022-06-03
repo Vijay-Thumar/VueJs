@@ -82,15 +82,15 @@ export default {
         values.id = null
         const res = this.$store.dispatch(`form/postCarDetails`, values)
         res.then((res) => {
-          if (res === 201) {
+          if (res.status === 201) {
             this.$toast.success('Car Added.', {
-              position: "top-right",
+              position: "bottom-right",
               duration: 1000,
             })
           }
           else {
             this.$toast.error('Fail to add Car!', {
-              position: 'top-right',
+              position: 'bottom-right',
               duration: 2000
             })
           }
@@ -100,12 +100,12 @@ export default {
         res.then((res) => {
           if (res.status === 200) {
             this.$toast.success('Modification is Applied', {
-              position: 'top-right',
+              position: 'bottom-right',
               duration: 1000
             })
-          }else{
-             this.$toast.error('Cannot Modify!', {
-              position: 'top-right',
+          } else {
+            this.$toast.error('Cannot Modify!', {
+              position: 'bottom-right',
               duration: 2000
             })
           }
