@@ -109,12 +109,12 @@ export default {
             another
               .then((res) => {
                 if (res.status == 200) {
-                  this.$toast.success(`Login successful with auth`, {
+                  this.$toast.success(`Login successful`, {
                     position: "bottom-right",
                     duration: 1500,
                   });
                 } else {
-                  this.$toast.error(res.response.data.error.message, {
+                  this.$toast.error(res && res.response.data.error.message, {
                     position: "bottom-right",
                     duration: 1500,
                   });

@@ -59,6 +59,11 @@ export default {
   mounted() {
     this.$store.dispatch('form/fetchMyCar', this.id)
   },
+  methods: {
+    goBackHandler() {
+      this.$router.push("/gallery");
+    },
+  }
 };
 </script>
 
