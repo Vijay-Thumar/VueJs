@@ -69,7 +69,10 @@ export default {
       this.$store.dispatch(`form/setLoading`, true);
       this.$router.push("/gallery");
     },
-  }
+  },
+  beforeUnmount() {
+    this.$store.dispatch(`form/setApiError`, null)
+  },
 };
 </script>
 
