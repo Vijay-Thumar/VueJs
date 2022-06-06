@@ -43,7 +43,12 @@ export default {
   },
   methods: {
     infoClickHandler(price, name) {
-      alert("Car Name: " + name + "\n" + "Price is: " + price);
+      // alert("Car Name: " + name + "\n" + "Price is: " + price);
+      this.$toast.info('Car Name: ' + name + '\n\n' + 'Price is: ' + price,{
+        position: 'top',
+        duration: 3000,
+        fullWidth: true,
+      });
     },
 
     deleteClickHandler(id) {

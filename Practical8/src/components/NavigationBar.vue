@@ -85,7 +85,7 @@ export default {
       this.$store.dispatch(`auth/setAuthUserName`, null);
       this.$store.dispatch(`auth/setUserAuth`, false)
       this.cookies.remove("localHostHelper")
-      this.$toast.success('logout successful', {
+      this.$toast.warning('logout successful', {
               position: 'bottom-right',
               duration: 2000
             })

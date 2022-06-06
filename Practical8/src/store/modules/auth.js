@@ -89,7 +89,7 @@ export const auth = {
           });
           if (user == undefined) {
             commit(`form/setLoading`, false, { root: true });
-            commit(`form/setApiError`, true, { root: true });
+            commit(`form/setApiError`, 'userErr', { root: true });
             return res.status = 404;
           } else {
             

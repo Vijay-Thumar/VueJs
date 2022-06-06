@@ -30,9 +30,10 @@
             <span class="text-danger" v-if="loading">
               We are checking the credentials please wait...
             </span>
-            <span class="text-danger" v-else-if="isErrorFound">
+            <span class="text-danger" v-else-if="isErrorFound == 'userErr'">
               User is not available! Please Signup
             </span>
+            <span v-else></span>
           </transition>
         </div>
         <div v-else><br></div>
