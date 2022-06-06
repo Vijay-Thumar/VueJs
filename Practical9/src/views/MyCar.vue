@@ -8,7 +8,9 @@
     </div>
 
     <div v-if="apiError" class="d-flex p-5 justify-content-center">
-      <details><summary>Advance Detail About Error</summary><b>Api Response:</b> <br> {{ apiError }}</details>
+      <details>
+        <summary>Advance Detail About Error</summary><b>Api Response:</b> <br> {{ apiError }}
+      </details>
     </div>
 
     <div v-if="!apiError && loading === 'showMyCar'" class="sub_container">
@@ -31,11 +33,13 @@
         <span class="label">Updated At: </span>
         <span class="car_data">{{ myCar.updatedAt }}</span>
       </p>
-      <button class="btn btn-primary" @click="goBackHandler">Go Back</button>
-      <br />
-      <br />
-      <br />
+      <!-- <button class="btn btn-primary" @click="goBackHandler">Go Back</button> -->
     </div>
+    <br>
+    <button class="btn btn-primary" @click="goBackHandler">Go Back</button>
+    <br />
+    <br />
+    <br />
 
   </div>
 </template>
@@ -61,6 +65,8 @@ export default {
   },
   methods: {
     goBackHandler() {
+      this.$store.dispatch(`form/setApiError`, null);
+      this.$store.dispatch(`form/setLoading`, true);
       this.$router.push("/gallery");
     },
   }

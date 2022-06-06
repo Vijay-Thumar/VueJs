@@ -9,10 +9,10 @@
       <nav>
         <transition @before-enter="beforeEnter" @enter="enter" appear mode="out-in">
           <span v-if="!userLoged">
-            <router-link :to="{ name: 'Login' }">Login</router-link>
-            <router-link :to="{ name: 'Signup' }">Signup</router-link>
+            <router-link :to="{ name: 'Login' }" @click=" this.$store.dispatch(`form/setApiError`, null)">Login</router-link>
+            <router-link :to="{ name: 'Signup' }" @click=" this.$store.dispatch(`form/setApiError`, null)">Signup</router-link>
           </span>
-          <span v-else>
+          <span v-else @click=" this.$store.dispatch(`form/setApiError`, null),this.$store.dispatch(`form/setLoading`, true)">
             <router-link :to="{ name: 'Gallery' }">Gallery</router-link>
           </span>
         </transition>
