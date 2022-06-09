@@ -23,9 +23,6 @@ export default {
       formData: null,
     };
   },
-  mounted(){
-    console.log(process.env)
-  },
   methods: {
     saveFormdataHandler(formData) {
       this.formData = formData;
