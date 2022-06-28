@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     userLoged() {
-      return this.$store.getters.getUserAuth;
+      return this.$store.getters.getUserAuth || '';
     },
   },
   data() {
