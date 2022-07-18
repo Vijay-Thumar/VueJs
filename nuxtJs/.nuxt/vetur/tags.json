@@ -1,0 +1,11 @@
+{
+  "CarForm": {
+    "description": "Auto imported from components/CarForm.vue"
+  },
+  "VehicleCard": {
+    "description": "Auto imported from components/VehicleCard.vue"
+  },
+  "Navigation": {
+    "description": "Auto imported from components/navigation/Navigation.vue"
+  }
+}

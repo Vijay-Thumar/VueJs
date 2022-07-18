@@ -1,0 +1,37 @@
+[
+  {
+    "name": "gallery",
+    "path": "/gallery",
+    "component": "/home/vijaythumar/Desktop/vuejs vijay-thumar/VueJs/nuxtJs/pages/gallery/index.vue",
+    "chunkName": "pages/gallery/index",
+    "_name": "_1409fc96"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "/home/vijaythumar/Desktop/vuejs vijay-thumar/VueJs/nuxtJs/pages/login/index.vue",
+    "chunkName": "pages/login/index",
+    "_name": "_73d85b0c"
+  },
+  {
+    "name": "signup",
+    "path": "/signup",
+    "component": "/home/vijaythumar/Desktop/vuejs vijay-thumar/VueJs/nuxtJs/pages/signup/index.vue",
+    "chunkName": "pages/signup/index",
+    "_name": "_42f95f6b"
+  },
+  {
+    "name": "gallery-id",
+    "path": "/gallery/:id",
+    "component": "/home/vijaythumar/Desktop/vuejs vijay-thumar/VueJs/nuxtJs/pages/gallery/_id/index.vue",
+    "chunkName": "pages/gallery/_id/index",
+    "_name": "_0f623a20"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/vijaythumar/Desktop/vuejs vijay-thumar/VueJs/nuxtJs/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_a246e79c"
+  }
+]
